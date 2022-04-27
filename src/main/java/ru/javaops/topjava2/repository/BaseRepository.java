@@ -22,4 +22,5 @@ public interface BaseRepository<T> extends JpaRepository<T, Integer> {
     default void deleteExisted(int id) {
         checkModification(delete(id), id);
     }
+
 }

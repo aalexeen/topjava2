@@ -3,7 +3,10 @@ package ru.javaops.topjava2.web;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.lang.NonNull;
+import ru.javaops.topjava2.model.Role;
 import ru.javaops.topjava2.model.User;
+
+import java.util.Set;
 
 @Getter
 @ToString(of = "user")
@@ -18,5 +21,9 @@ public class AuthUser extends org.springframework.security.core.userdetails.User
 
     public int id() {
         return user.id();
+    }
+
+    public Set<Role> getRoles() {
+        return user.getRoles();
     }
 }

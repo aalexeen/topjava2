@@ -1,0 +1,48 @@
+package ru.javaops.topjava2.to;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+import ru.javaops.topjava2.model.Restaurant;
+import ru.javaops.topjava2.util.DateTimeUtil;
+
+import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serial;
+import java.time.LocalDateTime;
+
+/**
+ * @author alex_jd on 4/22/22
+ * @project topjava2
+ */
+@Value
+@Getter
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+public class MealTo extends BaseTo {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @NotBlank
+    @Size(min = 2, max = 120)
+    String description;
+
+    @NotNull
+    //@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
+    LocalDateTime dateTime;
+
+    @NotNull
+    Integer restaurantId;
+
+    public MealTo(Integer id, LocalDateTime dateTime, String description, Integer restaurantId) {
+        super(id);
+        this.dateTime = dateTime;
+        this.description = description;
+        this.restaurantId = restaurantId;
+    }
+
+}
