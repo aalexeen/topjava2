@@ -9,4 +9,8 @@ import ru.javaops.topjava2.model.Meal;
  */
 @Transactional(readOnly = true)
 public interface MealRepository extends BaseRepository<Meal>{
+
+    @Override
+    @Transactional
+    Meal save(Meal meal);
 }
