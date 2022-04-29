@@ -19,7 +19,7 @@ public class VotingTestData {
     public static final MatcherFactory<Voting> VOTING_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Voting.class,
             "localTime", "restaurant.meals", "restaurant.name", "restaurant.registered",
             "user.registered", "user.email", "user.name", "user.password", "user.roles");
-    public static MatcherFactory<Voting> VOTING_TO_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Voting.class);
+    public static MatcherFactory<Voting> VOTING_TO_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Voting.class, "localDate", "localTime");
 
     public static final int NOT_FOUND = 10;
     public static final int VOTING1_ID = 1;

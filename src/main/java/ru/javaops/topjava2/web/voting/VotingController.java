@@ -45,7 +45,7 @@ public class VotingController extends AbstractVotingController {
     //@Cacheable
     public List<Voting> getAll() {
         log.info("getAll");
-        return votingRepository.findAll(Sort.by(Sort.Direction.DESC, "localDate", "localTime"));
+        return votingRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

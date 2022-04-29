@@ -33,7 +33,7 @@ public class MealController extends AbstractMealController {
     //@Cacheable
     public List<Meal> getAll() {
         log.info("getAll");
-        return mealRepository.findAll(Sort.by(Sort.Direction.ASC,  "dateTime", "restaurant_id"));
+        return mealRepository.findAll(Sort.by(Sort.Direction.ASC,  "id"));
     }
 
 
