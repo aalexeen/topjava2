@@ -17,6 +17,8 @@ import java.util.Date;
 public class DateTimeUtil {
 
     public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";
+    public static final String DATE_PATTERN = "yyyy-MM-dd";
+    public static final String TIME_PATTERN = "HH:mm";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
 
     // DB doesn't support LocalDate.MIN/MAX

@@ -45,6 +45,8 @@ public class MatcherFactory<T> {
     }
 
     public void assertMatch(T actual, T expected) {
+        System.out.println("actual = " + actual);
+        System.out.println("expected = " + expected);
         assertion.accept(actual, expected);
     }
 

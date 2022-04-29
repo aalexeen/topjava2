@@ -4,6 +4,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.Value;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author alex_jd on 4/22/22
  * @project topjava2
@@ -11,12 +13,13 @@ import lombok.Value;
 @Value
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class RestaurantTo extends BaseTo {
+public class RestaurantTo extends NamedTo {
 
-    int restaurantId;
+    @NotNull
+    Integer restaurantId;
 
-    public RestaurantTo(int id, int restaurantId) {
-        super(id);
+    public RestaurantTo(Integer id, String  name, Integer restaurantId ) {
+        super(id, name);
         this.restaurantId = restaurantId;
     }
 }

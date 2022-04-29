@@ -33,22 +33,22 @@ import static ru.javaops.topjava2.util.validation.ValidationUtil.*;
 @Slf4j
 public class VotingController extends AbstractVotingController {
 
-    static final String REST_URL = "/api/profile";
+    static final String REST_URL = "/api/profile/voting";
 
     @Override
-    @GetMapping("/voting/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Voting> get(@PathVariable int id) {
         return super.get(id);
     }
 
-    @GetMapping("/voting")
+    @GetMapping()
     //@Cacheable
     public List<Voting> getAll() {
         log.info("getAll");
-        return votingRepository.findAll(Sort.by(Sort.Direction.DESC, "registered"));
+        return votingRepository.findAll(Sort.by(Sort.Direction.DESC, "localDate", "localTime"));
     }
 
-    @PostMapping(value = "/voting", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Voting> createVoteWithLocation(@Valid @RequestBody VotingTo votingTo) {
         int restaurantId;
         if (votingTo.getRestaurantId() != 0) {
@@ -71,7 +71,7 @@ public class VotingController extends AbstractVotingController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @PutMapping(value = "/voting/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     //@CacheEvict(allEntries = true)
     public void update(@Valid @RequestBody VotingTo votingTo, @PathVariable int id) {

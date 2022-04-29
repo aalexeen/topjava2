@@ -55,6 +55,10 @@ public class User extends NamedEntity implements HasIdAndEmail {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Role> roles;
 
+    public User(Integer id, String name) {
+        super(id, name);
+    }
+
     public User(User u) {
         this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRegistered(), u.getRoles());
     }

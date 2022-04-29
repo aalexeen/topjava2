@@ -20,7 +20,7 @@ import java.util.List;
 @Table(name = "restaurants")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @ToString(callSuper = true)
 public class Restaurant extends NamedEntity {
 
@@ -35,4 +35,8 @@ public class Restaurant extends NamedEntity {
     @JsonManagedReference
     @ToString.Exclude
     private List<Meal> meals;
+
+    public Restaurant(Integer id, String name) {
+        super(id, name);
+    }
 }

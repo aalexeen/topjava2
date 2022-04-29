@@ -1,16 +1,10 @@
 package ru.javaops.topjava2.web.meal;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.javaops.topjava2.error.NotFoundException;
-import ru.javaops.topjava2.repository.MealRepository;
 import ru.javaops.topjava2.web.AbstractControllerTest;
-
-import java.util.Collections;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -27,8 +21,8 @@ class MealControllerTest extends AbstractControllerTest {
 
     private static final String REST_URL = MealController.REST_URL + '/';
 
-    @Autowired
-    private MealRepository mealRepository;
+/*    @Autowired
+    private MealRepository mealRepository;*/
 
     @Test
     @WithUserDetails(value = USER_MAIL)
@@ -43,7 +37,7 @@ class MealControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = USER_MAIL)
     void getNotFound() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + ADMIN_MEAL_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL + NONEXISTENT_MEAL_ID))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
@@ -61,6 +55,6 @@ class MealControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(meals));
+                .andExpect(MEAL_TO_MATCHER.contentJson(meals));
     }
 }
