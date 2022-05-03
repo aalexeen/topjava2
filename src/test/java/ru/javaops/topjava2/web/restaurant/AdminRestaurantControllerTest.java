@@ -1,4 +1,4 @@
-package ru.javaops.topjava2.web.meal;
+package ru.javaops.topjava2.web.restaurant;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,9 +6,9 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.javaops.topjava2.model.Meal;
-import ru.javaops.topjava2.repository.MealRepository;
-import ru.javaops.topjava2.to.MealTo;
+import ru.javaops.topjava2.model.Restaurant;
+import ru.javaops.topjava2.repository.RestaurantRepository;
+import ru.javaops.topjava2.to.RestaurantTo;
 import ru.javaops.topjava2.util.JsonUtil;
 import ru.javaops.topjava2.web.AbstractControllerTest;
 
@@ -16,78 +16,78 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.javaops.topjava2.web.meal.MealTestData.*;
+import static ru.javaops.topjava2.web.restaurant.RestaurantTestData.*;
 import static ru.javaops.topjava2.web.user.UserTestData.ADMIN_MAIL;
 
 /**
- * @author alex_jd on 4/27/22
+ * @author alex_jd on 5/2/22
  * @project topjava2
  */
-class AdminMealControllerTest extends AbstractControllerTest {
+public class AdminRestaurantControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = AdminMealController.REST_URL + '/';
+    private static final String REST_URL = AdminRestaurantController.REST_URL + '/';
 
     @Autowired
-    private MealRepository mealRepository;
+    private RestaurantRepository restaurantRepository;
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + MEAL1_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT1_ID))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MEAL_MATCHER.contentJson(meal1));
+                .andExpect(RESTAURANT_MATCHER.contentJson(restaurant1));
     }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_URL + MEAL1_ID))
+        perform(MockMvcRequestBuilders.delete(REST_URL + RESTAURANT1_ID))
                 .andDo(print())
                 .andExpect(status().isNoContent());
-        assertFalse(mealRepository.findById(MEAL1_ID).isPresent());
+        assertFalse(restaurantRepository.findById(RESTAURANT1_ID).isPresent());
     }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void update() throws Exception {
-        MealTo newMealTo = getUpdatedTo();
-        Meal updated = getNewFromTo(newMealTo);
-        newMealTo.setId(null);
-        perform(MockMvcRequestBuilders.put(REST_URL + MEAL1_ID)
+        RestaurantTo newRestaurantTo = getUpdatedTo();
+        Restaurant updated = getNewFromTo(newRestaurantTo);
+        newRestaurantTo.setId(null);
+        perform(MockMvcRequestBuilders.put(REST_URL + RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(newMealTo)))
+                .content(JsonUtil.writeValue(newRestaurantTo)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        MEAL_MATCHER.assertMatch(mealRepository.getById(MEAL1_ID), updated);
+        RESTAURANT_MATCHER.assertMatch(restaurantRepository.getById(RESTAURANT1_ID), updated);
     }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void createWithLocation() throws Exception {
-        MealTo newMealTo = getNewTo();
+        RestaurantTo newRestaurantTo = getNewTo();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(newMealTo)))
+                .content(JsonUtil.writeValue(newRestaurantTo)))
                 .andExpect(status().isCreated());
 
-        Meal newMeal = getNewFromTo(newMealTo);
-        Meal created = MEAL_MATCHER.readFromJson(action);
+        Restaurant newRestaurant = getNewFromTo(newRestaurantTo);
+        Restaurant created = RESTAURANT_MATCHER.readFromJson(action);
         int newId = created.id();
-        newMeal.setId(newId);
-        MEAL_MATCHER.assertMatch(created, newMeal);
-        MEAL_MATCHER.assertMatch(mealRepository.getById(newId), newMeal);
+        newRestaurant.setId(newId);
+        RESTAURANT_MATCHER.assertMatch(created, newRestaurant);
+        RESTAURANT_MATCHER.assertMatch(restaurantRepository.getById(newId), newRestaurant);
     }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void createInvalid() throws Exception {
-        MealTo newMealTo = new MealTo(null, null, "", 1);
+        RestaurantTo newRestaurantTo = new RestaurantTo(null, null, 1);
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(newMealTo)))
+                .content(JsonUtil.writeValue(newRestaurantTo)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
     }
@@ -95,8 +95,8 @@ class AdminMealControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void updateInvalid() throws Exception {
-        MealTo invalid = getInvalidTo();
-        perform(MockMvcRequestBuilders.put(REST_URL + MEAL1_ID)
+        RestaurantTo invalid = getInvalidTo();
+        perform(MockMvcRequestBuilders.put(REST_URL + RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid)))
                 .andDo(print())

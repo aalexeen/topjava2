@@ -1,4 +1,4 @@
-package ru.javaops.topjava2.web.meal;
+package ru.javaops.topjava2.web.restaurant;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -10,37 +10,39 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.javaops.topjava2.web.meal.MealTestData.*;
+import static ru.javaops.topjava2.web.meal.MealTestData.meals;
+import static ru.javaops.topjava2.web.restaurant.RestaurantTestData.*;
 import static ru.javaops.topjava2.web.user.UserTestData.USER_MAIL;
 
 /**
- * @author alex_jd on 4/26/22
+ * @author alex_jd on 5/2/22
  * @project topjava2
  */
-class MealControllerTest extends AbstractControllerTest {
+public class RestaurantControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = MealController.REST_URL + '/';
+    private static final String REST_URL = RestaurantController.REST_URL + '/';
 
     @Test
     @WithUserDetails(value = USER_MAIL)
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + MEAL1_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT1_ID))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MEAL_MATCHER.contentJson(meal1));
+                .andExpect(RESTAURANT_MATCHER.contentJson(restaurant1));
     }
 
     @Test
     @WithUserDetails(value = USER_MAIL)
     void getNotFound() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + NONEXISTENT_MEAL_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL + NONEXISTENT_RESTAURANT_ID))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
 
     @Test
     void getUnauth() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + MEAL1_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT1_ID))
                 .andExpect(status().isUnauthorized());
     }
 
@@ -51,6 +53,6 @@ class MealControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MEAL_TO_MATCHER.contentJson(meals));
+                .andExpect(RESTAURANT_MATCHER.contentJson(restaurants));
     }
 }

@@ -31,7 +31,6 @@ public class MealTo extends BaseTo {
     String description;
 
     @NotNull
-    //@JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     LocalDateTime dateTime;
 

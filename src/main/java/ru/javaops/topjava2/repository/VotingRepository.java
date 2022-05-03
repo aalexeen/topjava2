@@ -13,9 +13,6 @@ import java.time.LocalDate;
 @Transactional(readOnly = true)
 public interface VotingRepository extends BaseRepository<Voting> {
 
-//    @Query("SELECT v from Voting v WHERE v.user.id=:userId AND v.registered >= :startDate AND v.registered < :endDate ORDER BY v.registered DESC")
-//    List<Voting> getBetweenHalfOpen(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, @Param("userId") int userId);
-
     @Override
     @Transactional
     Voting save(Voting voting);

@@ -26,9 +26,15 @@ import static ru.javaops.topjava2.util.validation.ValidationUtil.*;
 @Slf4j
 public class AdminRestaurantController extends AbstractRestaurantController {
 
-    static final String REST_URL = "/api/admin";
+    static final String REST_URL = "/api/admin/restaurants";
 
-    @DeleteMapping("/restaurants/{id}")
+    @Override
+    @GetMapping("/{id}")
+    public ResponseEntity<Restaurant> get(@PathVariable int id) {
+        return super.get(id);
+    }
+
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id, @Parameter(hidden = true) @AuthenticationPrincipal AuthUser authUser) {
         if (checkPrivileges(authUser)) {
@@ -38,7 +44,7 @@ public class AdminRestaurantController extends AbstractRestaurantController {
         }
     }
 
-    @PutMapping(value = "/restaurants/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     //@CacheEvict(allEntries = true)
     public void update(@Valid @RequestBody Restaurant restaurant, @PathVariable int id,
@@ -53,7 +59,7 @@ public class AdminRestaurantController extends AbstractRestaurantController {
 
     }
 
-    @PostMapping(value = "/restaurants",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     //@CacheEvict(allEntries = true)
     public ResponseEntity<Restaurant> createWithLocation(@Valid @RequestBody Restaurant restaurant,
                                                          @Parameter(hidden = true) @AuthenticationPrincipal AuthUser authUser) {

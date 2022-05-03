@@ -34,22 +34,22 @@ import static ru.javaops.topjava2.util.validation.ValidationUtil.*;
 //@CacheConfig(cacheNames = "restaurants")
 public class RestaurantController extends AbstractRestaurantController {
 
-    static final String REST_URL = "/api/profile";
+    static final String REST_URL = "/api/profile/restaurants";
 
     @Override
-    @GetMapping("/restaurants/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Restaurant> get(@PathVariable int id) {
         return super.get(id);
     }
 
-    @GetMapping("/restaurants")
+    @GetMapping()
     //@Cacheable
     public List<Restaurant> getAll() {
         log.info("getAll");
         return repository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
-    @GetMapping("/restaurants/{id}/with-meals")
+    @GetMapping("/{id}/with-meals")
     public Restaurant getWithMeals(@PathVariable int id) {
         return super.getWithMeals(id);
     }

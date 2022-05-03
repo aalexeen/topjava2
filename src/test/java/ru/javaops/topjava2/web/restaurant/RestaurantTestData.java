@@ -18,14 +18,13 @@ import static java.time.LocalDateTime.of;
  */
 public class RestaurantTestData {
 
-    public static final MatcherFactory<Restaurant> RESTAURANT_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "restaurant","dateTime");
+    public static final MatcherFactory<Restaurant> RESTAURANT_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "registered");
     public static MatcherFactory<Restaurant> RESTAURANT_TO_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "dateTime");
 
     public static final int NOT_FOUND = 10;
     public static final int RESTAURANT1_ID = 1;
-    public static final int ADMIN_MEAL_ID = 9;
 
-    public static final int RESTAURANT_ID = 1;
+    public static final int NONEXISTENT_RESTAURANT_ID = 10;
 
     public static final Restaurant restaurant1 = new Restaurant(RESTAURANT1_ID, "RESTAURANT_1");
     public static final Restaurant restaurant2 = new Restaurant(RESTAURANT1_ID + 1, "RESTAURANT_2");
