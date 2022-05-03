@@ -2,6 +2,7 @@ package ru.javaops.topjava2.web.meal;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import ru.javaops.topjava2.model.Meal;
@@ -28,7 +29,7 @@ public abstract class AbstractMealController {
         return ResponseEntity.of(mealRepository.findById(id));
     }
 
-    //@CacheEvict(value = "restaurants", allEntries = true)
+    @CacheEvict(value = "meals", allEntries = true)
     public void delete(int id) {
         log.info("delete {}", id);
         mealRepository.deleteExisted(id);

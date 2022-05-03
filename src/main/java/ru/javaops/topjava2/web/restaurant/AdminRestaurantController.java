@@ -2,6 +2,8 @@ package ru.javaops.topjava2.web.restaurant;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ import static ru.javaops.topjava2.util.validation.ValidationUtil.*;
 @RestController
 @RequestMapping(value = AdminRestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
+@CacheConfig(cacheNames = "restaurants")
 public class AdminRestaurantController extends AbstractRestaurantController {
 
     static final String REST_URL = "/api/admin/restaurants";
@@ -46,7 +49,7 @@ public class AdminRestaurantController extends AbstractRestaurantController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    //@CacheEvict(allEntries = true)
+    @CacheEvict(allEntries = true)
     public void update(@Valid @RequestBody Restaurant restaurant, @PathVariable int id,
                        @Parameter(hidden = true) @AuthenticationPrincipal AuthUser authUser) {
         if (checkPrivileges(authUser)) {
@@ -60,7 +63,7 @@ public class AdminRestaurantController extends AbstractRestaurantController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    //@CacheEvict(allEntries = true)
+    @CacheEvict(allEntries = true)
     public ResponseEntity<Restaurant> createWithLocation(@Valid @RequestBody Restaurant restaurant,
                                                          @Parameter(hidden = true) @AuthenticationPrincipal AuthUser authUser) {
         if (checkPrivileges(authUser)) {

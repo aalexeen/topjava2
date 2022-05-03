@@ -1,6 +1,9 @@
 package ru.javaops.topjava2.web.voting;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,6 +34,7 @@ import static ru.javaops.topjava2.util.validation.ValidationUtil.*;
 @RestController
 @RequestMapping(value = VotingController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
+@CacheConfig(cacheNames = "voting")
 public class VotingController extends AbstractVotingController {
 
     static final String REST_URL = "/api/profile/voting";
@@ -42,13 +46,14 @@ public class VotingController extends AbstractVotingController {
     }
 
     @GetMapping()
-    //@Cacheable
+    @Cacheable
     public List<Voting> getAll() {
         log.info("getAll");
         return votingRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @CacheEvict(allEntries = true)
     public ResponseEntity<Voting> createVoteWithLocation(@Valid @RequestBody VotingTo votingTo) {
         int restaurantId;
         if (votingTo.getRestaurantId() != 0) {
@@ -73,7 +78,7 @@ public class VotingController extends AbstractVotingController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    //@CacheEvict(allEntries = true)
+    @CacheEvict(allEntries = true)
     public void update(@Valid @RequestBody VotingTo votingTo, @PathVariable int id) {
         LocalDate localDate = votingRepository.findById(id).orElseThrow().getLocalDate();
         if (localDate.compareTo(asLocalDateTime(new Date()).toLocalDate()) <= 0

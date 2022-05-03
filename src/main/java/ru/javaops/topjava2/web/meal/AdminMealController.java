@@ -1,19 +1,17 @@
 package ru.javaops.topjava2.web.meal;
 
-import io.swagger.v3.oas.annotations.Parameter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.javaops.topjava2.error.ForbiddenException;
 import ru.javaops.topjava2.error.NotNullParameter;
 import ru.javaops.topjava2.model.Meal;
 import ru.javaops.topjava2.model.Restaurant;
 import ru.javaops.topjava2.to.MealTo;
-import ru.javaops.topjava2.web.AuthUser;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -27,6 +25,7 @@ import static ru.javaops.topjava2.util.validation.ValidationUtil.*;
 @RestController
 @RequestMapping(value = AdminMealController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
+@CacheConfig(cacheNames = "meals")
 public class AdminMealController extends AbstractMealController {
 
     static final String REST_URL = "/api/admin/meals";
@@ -45,7 +44,7 @@ public class AdminMealController extends AbstractMealController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    //@CacheEvict(allEntries = true)
+    @CacheEvict(allEntries = true)
     public void update(@Valid @RequestBody MealTo mealTo, @PathVariable int id) {
         Meal meal = new Meal();
         assureIdConsistent(meal, id);
@@ -69,6 +68,7 @@ public class AdminMealController extends AbstractMealController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @CacheEvict(allEntries = true)
     public ResponseEntity<Meal> createWithLocation(@Valid @RequestBody MealTo mealTo) {
         int restaurantId;
         if (mealTo.getRestaurantId() != 0) {

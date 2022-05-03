@@ -1,27 +1,18 @@
 package ru.javaops.topjava2.web.restaurant;
 
-import io.swagger.v3.oas.annotations.Hidden;
-import io.swagger.v3.oas.annotations.Parameter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.javaops.topjava2.error.ForbiddenException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.javaops.topjava2.model.Restaurant;
-import ru.javaops.topjava2.model.Role;
-import ru.javaops.topjava2.model.User;
-import ru.javaops.topjava2.web.AuthUser;
 
-import java.net.URI;
 import java.util.List;
-import javax.validation.Valid;
-
-import static ru.javaops.topjava2.util.validation.ValidationUtil.*;
 
 /**
  * @author alex_jd on 4/20/22
@@ -31,7 +22,7 @@ import static ru.javaops.topjava2.util.validation.ValidationUtil.*;
 @RestController
 @RequestMapping(value = RestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
-//@CacheConfig(cacheNames = "restaurants")
+@CacheConfig(cacheNames = "restaurants")
 public class RestaurantController extends AbstractRestaurantController {
 
     static final String REST_URL = "/api/profile/restaurants";
@@ -43,13 +34,14 @@ public class RestaurantController extends AbstractRestaurantController {
     }
 
     @GetMapping()
-    //@Cacheable
+    @Cacheable
     public List<Restaurant> getAll() {
         log.info("getAll");
         return repository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
     @GetMapping("/{id}/with-meals")
+    @Cacheable
     public Restaurant getWithMeals(@PathVariable int id) {
         return super.getWithMeals(id);
     }
