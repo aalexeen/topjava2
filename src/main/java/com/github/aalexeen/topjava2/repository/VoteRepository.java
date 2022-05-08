@@ -1,7 +1,7 @@
 package com.github.aalexeen.topjava2.repository;
 
 import com.github.aalexeen.topjava2.model.User;
-import com.github.aalexeen.topjava2.model.Voting;
+import com.github.aalexeen.topjava2.model.Vote;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -11,11 +11,7 @@ import java.time.LocalDate;
  * @project topjava2
  */
 @Transactional(readOnly = true)
-public interface VotingRepository extends BaseRepository<Voting> {
+public interface VoteRepository extends BaseRepository<Vote> {
 
-    @Override
-    @Transactional
-    Voting save(Voting voting);
-
-    Voting getVotingByLocalDateAndUser(LocalDate localDate, User user);
+    Vote getVotingByLocalDateAndUser(LocalDate localDate, User user);
 }

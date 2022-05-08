@@ -1,6 +1,6 @@
-package com.github.aalexeen.topjava2.web.voting;
+package com.github.aalexeen.topjava2.web.vote;
 
-import com.github.aalexeen.topjava2.model.Voting;
+import com.github.aalexeen.topjava2.model.Vote;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -17,24 +17,24 @@ import java.util.List;
  * @project topjava2
  */
 @RestController
-@RequestMapping(value = AdminVotingController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = AdminVoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
-@CacheConfig(cacheNames = "voting")
-public class AdminVotingController extends AbstractVotingController {
+@CacheConfig(cacheNames = "vote")
+public class AdminVoteController extends AbstractVoteController {
 
-    static final String REST_URL = "/api/admin/voting";
+    static final String REST_URL = "/api/admin/vote";
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<Voting> get(@PathVariable int id) {
+    public ResponseEntity<Vote> get(@PathVariable int id) {
         return super.get(id);
     }
 
     @GetMapping()
     @Cacheable
-    public List<Voting> getAll() {
+    public List<Vote> getAll() {
         log.info("getAll");
-        return votingRepository.findAll(Sort.by(Sort.Direction.DESC, "localDate", "localTime"));
+        return voteRepository.findAll(Sort.by(Sort.Direction.DESC, "localDate", "localTime"));
     }
 
     @Override

@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Getter
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class MealTo extends BaseTo {
+public class DishTo extends BaseTo {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -37,7 +37,7 @@ public class MealTo extends BaseTo {
     @NotNull
     Integer restaurantId;
 
-    public MealTo(Integer id, LocalDateTime dateTime, String description, Integer restaurantId) {
+    public DishTo(Integer id, LocalDateTime dateTime, String description, Integer restaurantId) {
         super(id);
         this.dateTime = dateTime;
         this.description = description;

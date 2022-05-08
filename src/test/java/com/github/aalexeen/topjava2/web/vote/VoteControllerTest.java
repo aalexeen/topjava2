@@ -1,8 +1,8 @@
-package com.github.aalexeen.topjava2.web.voting;
+package com.github.aalexeen.topjava2.web.vote;
 
-import com.github.aalexeen.topjava2.model.Voting;
-import com.github.aalexeen.topjava2.repository.VotingRepository;
-import com.github.aalexeen.topjava2.to.VotingTo;
+import com.github.aalexeen.topjava2.model.Vote;
+import com.github.aalexeen.topjava2.repository.VoteRepository;
+import com.github.aalexeen.topjava2.to.VoteTo;
 import com.github.aalexeen.topjava2.util.JsonUtil;
 import com.github.aalexeen.topjava2.web.AbstractControllerTest;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.github.aalexeen.topjava2.web.user.UserTestData.USER_MAIL;
-import static com.github.aalexeen.topjava2.web.voting.VotingTestData.*;
+import static com.github.aalexeen.topjava2.web.vote.VoteTestData.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -22,34 +22,34 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author alex_jd on 4/28/22
  * @project topjava2
  */
-public class VotingControllerTest extends AbstractControllerTest {
+public class VoteControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = VotingController.REST_URL + '/';
+    private static final String REST_URL = VoteController.REST_URL + '/';
 
     @Autowired
-    private VotingRepository votingRepository;
+    private VoteRepository voteRepository;
 
     @Test
     @WithUserDetails(value = USER_MAIL)
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + (VOTING1_ID + 7)))
+        perform(MockMvcRequestBuilders.get(REST_URL + (VOTE1_ID + 7)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(VOTING_MATCHER.contentJson(voting8));
+                .andExpect(VOTE_MATCHER.contentJson(VOTE_8));
     }
 
     @Test
     @WithUserDetails(value = USER_MAIL)
     void getNotFound() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + NONEXISTENT_VOTING_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL + NONEXISTENT_VOTE_ID))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
 
     @Test
     void getUnauth() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + VOTING1_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL + VOTE1_ID))
                 .andExpect(status().isUnauthorized());
     }
 
@@ -60,24 +60,24 @@ public class VotingControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(VOTING_TO_MATCHER.contentJson(votings));
+                .andExpect(VOTE_TO_MATCHER.contentJson(VOTES));
     }*/
 
     @Test
     @WithUserDetails(value = USER_MAIL)
     void createWithLocation() throws Exception {
-        votingRepository.deleteExisted(8);
-        VotingTo newVotingTo = getVotingTo();
+        voteRepository.deleteExisted(8);
+        VoteTo newVoteTo = getVotingTo();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(newVotingTo)))
+                .content(JsonUtil.writeValue(newVoteTo)))
                 .andExpect(status().isCreated());
 
-        Voting newVoting = getNewFromTo(newVotingTo);
-        Voting created = VOTING_MATCHER.readFromJson(action);
+        Vote newVote = getNewFromTo(newVoteTo);
+        Vote created = VOTE_MATCHER.readFromJson(action);
         int newId = created.id();
-        newVoting.setId(newId);
-        VOTING_MATCHER.assertMatch(created, newVoting);
-        VOTING_MATCHER.assertMatch(votingRepository.getById(newId), newVoting);
+        newVote.setId(newId);
+        VOTE_MATCHER.assertMatch(created, newVote);
+        VOTE_MATCHER.assertMatch(voteRepository.getById(newId), newVote);
     }
 }

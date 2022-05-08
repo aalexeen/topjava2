@@ -26,10 +26,10 @@ import static com.github.aalexeen.topjava2.util.validation.ValidationUtil.*;
 @RestController
 @RequestMapping(value = AdminRestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
-@CacheConfig(cacheNames = "restaurants")
+@CacheConfig(cacheNames = "restaurant")
 public class AdminRestaurantController extends AbstractRestaurantController {
 
-    static final String REST_URL = "/api/admin/restaurants";
+    static final String REST_URL = "/api/admin/restaurant";
 
     @Override
     @GetMapping("/{id}")

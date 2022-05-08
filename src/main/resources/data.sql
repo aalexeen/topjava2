@@ -7,12 +7,12 @@ VALUES ('USER', 1),
        ('ADMIN', 2),
        ('USER', 2);
 
-INSERT INTO restaurants (id, name)
+INSERT INTO restaurant (id, name)
 VALUES (1, 'RESTAURANT_1'),
        (2, 'RESTAURANT_2'),
        (3, 'RESTAURANT_3');
 
-INSERT INTO meals (id, date_time, description, restaurant_id)
+INSERT INTO dish (id, date_time, description, restaurant_id)
 VALUES (1, '2020-01-30 10:00:00', 'bread', 1),
        (2, '2020-01-30 13:00:00', 'milk', 1),
        (3, '2020-01-30 20:00:00', 'juice', 1),
@@ -22,7 +22,7 @@ VALUES (1, '2020-01-30 10:00:00', 'bread', 1),
        (7, '2020-01-31 20:00:00', 'chocolate', 3),
        (8, '2020-01-31 14:00:00', 'ice cream', 3);
 
-INSERT INTO voting (id, user_id, restaurant_id, date, time)
+INSERT INTO vote (id, user_id, restaurant_id, date, time)
 VALUES (1, 1, 1, '2022-04-16', '19:44:15'),
        (2, 2, 1, '2022-04-16', '19:44:15' ),
        (3, 2, 2, '2022-04-17', '19:44:15' ),

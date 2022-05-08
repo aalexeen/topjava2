@@ -24,12 +24,12 @@ import static com.github.aalexeen.topjava2.util.DateTimeUtil.asLocalDateTime;
  */
 
 @Entity
-@Table(name = "voting", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "user_id"}, name = "meals_unique_date_user_idx")})
+@Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "user_id"}, name = "vote_unique_date_user_idx")})
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @ToString(callSuper = true)
-public class Voting extends BaseEntity {
+public class Vote extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -63,7 +63,7 @@ public class Voting extends BaseEntity {
     @JsonFormat(pattern = DateTimeUtil.TIME_PATTERN)
     private LocalTime localTime = asLocalDateTime(new Date()).toLocalTime();
 
-    public Voting(Integer id, User user, Restaurant restaurant, LocalDate localDate, LocalTime localTime) {
+    public Vote(Integer id, User user, Restaurant restaurant, LocalDate localDate, LocalTime localTime) {
         super(id);
         this.user = user;
         this.restaurant = restaurant;

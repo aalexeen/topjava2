@@ -22,10 +22,10 @@ import java.util.List;
 @RestController
 @RequestMapping(value = RestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
-@CacheConfig(cacheNames = "restaurants")
+@CacheConfig(cacheNames = "restaurant")
 public class RestaurantController extends AbstractRestaurantController {
 
-    static final String REST_URL = "/api/profile/restaurants";
+    static final String REST_URL = "/api/profile/restaurant";
 
     @Override
     @GetMapping("/{id}")
@@ -40,7 +40,7 @@ public class RestaurantController extends AbstractRestaurantController {
         return repository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
-    @GetMapping("/{id}/with-meals")
+    @GetMapping("/{id}/with-menu")
     @Cacheable
     public Restaurant getWithMeals(@PathVariable int id) {
         return super.getWithMeals(id);

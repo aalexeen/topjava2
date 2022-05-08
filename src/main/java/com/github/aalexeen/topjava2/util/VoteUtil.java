@@ -1,5 +1,6 @@
 package com.github.aalexeen.topjava2.util;
 
+import com.github.aalexeen.topjava2.web.vote.VoteController;
 import lombok.experimental.UtilityClass;
 
 import java.time.LocalTime;
@@ -9,10 +10,9 @@ import java.time.LocalTime;
  * @project topjava2
  */
 @UtilityClass
-public class VotingUtil {
-    public static LocalTime DEADLINE = LocalTime.of(23, 0);
+public class VoteUtil {
 
     public static void setLocalTime(LocalTime localTime) {
-        DEADLINE = localTime;
+        VoteController.DEADLINE = localTime;
     }
 }

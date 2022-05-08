@@ -1,9 +1,9 @@
-package com.github.aalexeen.topjava2.web.meal;
+package com.github.aalexeen.topjava2.web.dish;
 
 import com.github.aalexeen.topjava2.error.NotNullParameter;
-import com.github.aalexeen.topjava2.model.Meal;
+import com.github.aalexeen.topjava2.model.Dish;
 import com.github.aalexeen.topjava2.model.Restaurant;
-import com.github.aalexeen.topjava2.to.MealTo;
+import com.github.aalexeen.topjava2.to.DishTo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -25,14 +25,14 @@ import static com.github.aalexeen.topjava2.util.validation.ValidationUtil.*;
 @RestController
 @RequestMapping(value = AdminMealController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
-@CacheConfig(cacheNames = "meals")
+@CacheConfig(cacheNames = "dish")
 public class AdminMealController extends AbstractMealController {
 
-    static final String REST_URL = "/api/admin/meals";
+    static final String REST_URL = "/api/admin/dish";
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<Meal> get(@PathVariable int id) {
+    public ResponseEntity<Dish> get(@PathVariable int id) {
         return super.get(id);
     }
 
@@ -45,43 +45,43 @@ public class AdminMealController extends AbstractMealController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @CacheEvict(allEntries = true)
-    public void update(@Valid @RequestBody MealTo mealTo, @PathVariable int id) {
-        Meal meal = new Meal();
-        assureIdConsistent(meal, id);
+    public void update(@Valid @RequestBody DishTo dishTo, @PathVariable int id) {
+        Dish dish = new Dish();
+        assureIdConsistent(dish, id);
         int restaurantId;
-        if (mealTo.getRestaurantId() != 0) {
-            restaurantId = mealTo.getRestaurantId();
+        if (dishTo.getRestaurantId() != 0) {
+            restaurantId = dishTo.getRestaurantId();
             checkNotFoundWithId(restaurantRepository.findAll().stream().map(Restaurant::getId).anyMatch(x -> x == restaurantId), restaurantId);
         } else {
-            restaurantId = mealRepository.getById(id).getRestaurant().getId();
+            restaurantId = dishRepository.getById(id).getRestaurant().getId();
         }
 
-        if (mealTo.getDescription() != null) {
-            meal.setDescription(mealTo.getDescription());
+        if (dishTo.getDescription() != null) {
+            dish.setDescription(dishTo.getDescription());
         } else {
-            meal.setDescription(mealRepository.getById(id).getDescription());
+            dish.setDescription(dishRepository.getById(id).getDescription());
         }
-        meal.setRestaurant(restaurantRepository.getById(restaurantId));
-        log.info("update {} with id={}", meal, id);
+        dish.setRestaurant(restaurantRepository.getById(restaurantId));
+        log.info("update {} with id={}", dish, id);
 
-        super.update(meal);
+        super.update(dish);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @CacheEvict(allEntries = true)
-    public ResponseEntity<Meal> createWithLocation(@Valid @RequestBody MealTo mealTo) {
+    public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody DishTo dishTo) {
         int restaurantId;
-        if (mealTo.getRestaurantId() != 0) {
-            restaurantId = mealTo.getRestaurantId();
+        if (dishTo.getRestaurantId() != 0) {
+            restaurantId = dishTo.getRestaurantId();
         } else {
             throw new NotNullParameter("The restaurantId parameter should not be 0");
         }
 
         checkNotFoundWithId(restaurantRepository.findAll().stream().map(Restaurant::getId).anyMatch(x -> x == restaurantId), restaurantId);
-        Meal meal = new Meal(mealTo.getDescription(), restaurantRepository.getById(restaurantId));
-        log.info("create {}", meal);
-        checkNew(meal);
-        Meal created = super.create(meal);
+        Dish dish = new Dish(dishTo.getDescription(), restaurantRepository.getById(restaurantId));
+        log.info("create {}", dish);
+        checkNew(dish);
+        Dish created = super.create(dish);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();

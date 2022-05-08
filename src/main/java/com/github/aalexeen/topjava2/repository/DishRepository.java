@@ -1,6 +1,6 @@
 package com.github.aalexeen.topjava2.repository;
 
-import com.github.aalexeen.topjava2.model.Meal;
+import com.github.aalexeen.topjava2.model.Dish;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -8,9 +8,5 @@ import org.springframework.transaction.annotation.Transactional;
  * @project topjava2
  */
 @Transactional(readOnly = true)
-public interface MealRepository extends BaseRepository<Meal> {
-
-    @Override
-    @Transactional
-    Meal save(Meal meal);
+public interface DishRepository extends BaseRepository<Dish> {
 }

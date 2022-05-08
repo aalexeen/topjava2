@@ -1,6 +1,6 @@
-package com.github.aalexeen.topjava2.web.meal;
+package com.github.aalexeen.topjava2.web.dish;
 
-import com.github.aalexeen.topjava2.model.Meal;
+import com.github.aalexeen.topjava2.model.Dish;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -21,22 +21,22 @@ import java.util.List;
 @RestController
 @RequestMapping(value = MealController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
-@CacheConfig(cacheNames = "meals")
+@CacheConfig(cacheNames = "dish")
 public class MealController extends AbstractMealController {
 
-    static final String REST_URL = "/api/profile/meals";
+    static final String REST_URL = "/api/profile/dish";
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<Meal> get(@PathVariable int id) {
+    public ResponseEntity<Dish> get(@PathVariable int id) {
         return super.get(id);
     }
 
     @GetMapping
     @Cacheable
-    public List<Meal> getAll() {
+    public List<Dish> getAll() {
         log.info("getAll");
-        return mealRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        return dishRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
 

@@ -21,12 +21,12 @@ import java.time.LocalDateTime;
  */
 
 @Entity
-@Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "description", "date_time"}, name = "meals_unique_restaurant_description_date_time_idx")})
+@Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "description", "date_time"}, name = "dish_unique_restaurant_description_date_time_idx")})
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @ToString(callSuper = true)
-public class Meal extends BaseEntity {
+public class Dish extends BaseEntity {
 
     @Column(name = "description", nullable = false)
     @NotBlank
@@ -47,24 +47,24 @@ public class Meal extends BaseEntity {
     @ToString.Exclude
     private Restaurant restaurant;
 
-    public Meal(Meal meal) {
-        this(meal.id, meal.dateTime, meal.description);
+    public Dish(Dish dish) {
+        this(dish.id, dish.dateTime, dish.description);
     }
 
-    public Meal(Integer id, String description, Restaurant restaurant) {
+    public Dish(Integer id, String description, Restaurant restaurant) {
         super(id);
         this.description = description;
         this.restaurant = restaurant;
         this.dateTime = LocalDateTime.now();
     }
 
-    public Meal(String description, Restaurant restaurant) {
+    public Dish(String description, Restaurant restaurant) {
         this.description = description;
         this.restaurant = restaurant;
         this.dateTime = LocalDateTime.now();
     }
 
-    public Meal(Integer id, LocalDateTime dateTime, String description) {
+    public Dish(Integer id, LocalDateTime dateTime, String description) {
         super(id);
         this.dateTime = dateTime;
         this.description = description;

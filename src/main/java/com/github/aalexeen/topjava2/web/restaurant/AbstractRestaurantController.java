@@ -25,7 +25,7 @@ public abstract class AbstractRestaurantController {
         return ResponseEntity.of(repository.findById(id));
     }
 
-    @CacheEvict(value = "restaurants", allEntries = true)
+    @CacheEvict(value = "restaurant", allEntries = true)
     public void delete(int id) {
         log.info("delete {}", id);
         repository.deleteExisted(id);

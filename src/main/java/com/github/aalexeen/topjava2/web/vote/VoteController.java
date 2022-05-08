@@ -1,11 +1,11 @@
-package com.github.aalexeen.topjava2.web.voting;
+package com.github.aalexeen.topjava2.web.vote;
 
 import com.github.aalexeen.topjava2.error.NotNullParameter;
 import com.github.aalexeen.topjava2.error.TooLateException;
 import com.github.aalexeen.topjava2.model.Restaurant;
-import com.github.aalexeen.topjava2.model.Voting;
-import com.github.aalexeen.topjava2.to.VotingTo;
-import com.github.aalexeen.topjava2.util.VotingUtil;
+import com.github.aalexeen.topjava2.model.Vote;
+import com.github.aalexeen.topjava2.to.VoteTo;
+import com.github.aalexeen.topjava2.util.VoteUtil;
 import com.github.aalexeen.topjava2.web.SecurityUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
@@ -21,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -32,44 +33,46 @@ import static com.github.aalexeen.topjava2.util.validation.ValidationUtil.*;
  * @project topjava2
  */
 @RestController
-@RequestMapping(value = VotingController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = VoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
-@CacheConfig(cacheNames = "voting")
-public class VotingController extends AbstractVotingController {
+@CacheConfig(cacheNames = "vote")
+public class VoteController extends AbstractVoteController {
 
-    static final String REST_URL = "/api/profile/voting";
+    static final String REST_URL = "/api/profile/vote";
+
+    public static LocalTime DEADLINE = LocalTime.of(11, 0);
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<Voting> get(@PathVariable int id) {
+    public ResponseEntity<Vote> get(@PathVariable int id) {
         return super.get(id);
     }
 
     @GetMapping()
     @Cacheable
-    public List<Voting> getAll() {
+    public List<Vote> getAll() {
         log.info("getAll");
-        return votingRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        return voteRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @CacheEvict(allEntries = true)
-    public ResponseEntity<Voting> createVoteWithLocation(@Valid @RequestBody VotingTo votingTo) {
+    public ResponseEntity<Vote> createVoteWithLocation(@Valid @RequestBody VoteTo voteTo) {
         int restaurantId;
-        if (votingTo.getRestaurantId() != 0) {
-            restaurantId = votingTo.getRestaurantId();
+        if (voteTo.getRestaurantId() != 0) {
+            restaurantId = voteTo.getRestaurantId();
         } else {
             throw new NotNullParameter("The restaurantId parameter should not be 0");
         }
 
         checkNotFoundWithId(restaurantRepository.findAll().stream().map(Restaurant::getId).anyMatch(x -> x == restaurantId), restaurantId);
 
-        Voting voting = new Voting();
-        voting.setRestaurant(restaurantRepository.getById(restaurantId));
-        log.info("create {}", voting);
-        checkNew(voting);
-        checkPossibilityToCreate(votingRepository.getVotingByLocalDateAndUser(asLocalDateTime(new Date()).toLocalDate(), SecurityUtil.authUser()), restaurantId);
-        Voting created = super.create(voting);
+        Vote vote = new Vote();
+        vote.setRestaurant(restaurantRepository.getById(restaurantId));
+        log.info("create {}", vote);
+        checkNew(vote);
+        checkPossibilityToCreate(voteRepository.getVotingByLocalDateAndUser(asLocalDateTime(new Date()).toLocalDate(), SecurityUtil.authUser()), restaurantId);
+        Vote created = super.create(vote);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
@@ -79,22 +82,22 @@ public class VotingController extends AbstractVotingController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @CacheEvict(allEntries = true)
-    public void update(@Valid @RequestBody VotingTo votingTo, @PathVariable int id) {
-        LocalDate localDate = votingRepository.findById(id).orElseThrow().getLocalDate();
+    public void update(@Valid @RequestBody VoteTo voteTo, @PathVariable int id) {
+        LocalDate localDate = voteRepository.findById(id).orElseThrow().getLocalDate();
         if (localDate.compareTo(asLocalDateTime(new Date()).toLocalDate()) <= 0
-                && VotingUtil.DEADLINE.compareTo(asLocalDateTime(new Date()).toLocalTime()) <= 0) {
+                && DEADLINE.compareTo(asLocalDateTime(new Date()).toLocalTime()) <= 0) {
             throw new TooLateException("it's too late to change your mind");
         }
 
-        Restaurant restaurant = restaurantRepository.getById(votingTo.getRestaurantId());
-        checkNotFoundWithId(restaurant, votingTo.getRestaurantId());
+        Restaurant restaurant = restaurantRepository.getById(voteTo.getRestaurantId());
+        checkNotFoundWithId(restaurant, voteTo.getRestaurantId());
 
-        Voting voting = new Voting();
-        voting.setId(id);
-        voting.setRestaurant(restaurant);
+        Vote vote = new Vote();
+        vote.setId(id);
+        vote.setRestaurant(restaurant);
 
-        log.info("update {} with id={}", voting, id);
-        assureIdConsistent(voting, id);
-        super.update(voting);
+        log.info("update {} with id={}", vote, id);
+        assureIdConsistent(vote, id);
+        super.update(vote);
     }
 }

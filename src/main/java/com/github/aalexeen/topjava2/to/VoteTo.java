@@ -17,7 +17,7 @@ import java.time.LocalTime;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class VotingTo extends BaseTo {
+public class VoteTo extends BaseTo {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -32,7 +32,7 @@ public class VotingTo extends BaseTo {
     @JsonFormat(pattern = DateTimeUtil.TIME_PATTERN)
     LocalTime time;
 
-    public VotingTo(Integer id, Integer userId, Integer restaurantId, LocalDate date, LocalTime time) {
+    public VoteTo(Integer id, Integer userId, Integer restaurantId, LocalDate date, LocalTime time) {
         super(id);
         this.restaurantId = restaurantId;
         this.userId = userId;

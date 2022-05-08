@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "restaurants")
+@Table(name = "restaurant")
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
@@ -34,7 +34,7 @@ public class Restaurant extends NamedEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonManagedReference
     @ToString.Exclude
-    private List<Meal> meals;
+    private List<Dish> dishes;
 
     public Restaurant(Integer id, String name) {
         super(id, name);

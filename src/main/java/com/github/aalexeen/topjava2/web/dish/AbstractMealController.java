@@ -1,7 +1,7 @@
-package com.github.aalexeen.topjava2.web.meal;
+package com.github.aalexeen.topjava2.web.dish;
 
-import com.github.aalexeen.topjava2.model.Meal;
-import com.github.aalexeen.topjava2.repository.MealRepository;
+import com.github.aalexeen.topjava2.model.Dish;
+import com.github.aalexeen.topjava2.repository.DishRepository;
 import com.github.aalexeen.topjava2.repository.RestaurantRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,29 +19,29 @@ import static com.github.aalexeen.topjava2.util.validation.ValidationUtil.checkN
 public abstract class AbstractMealController {
 
     @Autowired
-    protected MealRepository mealRepository;
+    protected DishRepository dishRepository;
 
     @Autowired
     protected RestaurantRepository restaurantRepository;
 
-    public ResponseEntity<Meal> get(int id) {
+    public ResponseEntity<Dish> get(int id) {
         log.info("get {}", id);
-        return ResponseEntity.of(mealRepository.findById(id));
+        return ResponseEntity.of(dishRepository.findById(id));
     }
 
-    @CacheEvict(value = "meals", allEntries = true)
+    @CacheEvict(value = "dish", allEntries = true)
     public void delete(int id) {
         log.info("delete {}", id);
-        mealRepository.deleteExisted(id);
+        dishRepository.deleteExisted(id);
     }
 
-    public void update(Meal meal) {
-        Assert.notNull(meal, "meal must not be null");
-        checkNotFoundWithId(mealRepository.save(meal), meal.id());
+    public void update(Dish dish) {
+        Assert.notNull(dish, "dish must not be null");
+        checkNotFoundWithId(dishRepository.save(dish), dish.id());
     }
 
-    public Meal create(Meal meal) {
-        Assert.notNull(meal, "meal must not be null");
-        return mealRepository.save(meal);
+    public Dish create(Dish dish) {
+        Assert.notNull(dish, "dish must not be null");
+        return dishRepository.save(dish);
     }
 }

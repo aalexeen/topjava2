@@ -13,10 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface RestaurantRepository extends BaseRepository<Restaurant> {
 
     @EntityGraph(attributePaths = {"meals"}, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT u FROM Restaurant u WHERE u.id=?1")
+    @Query("SELECT r FROM Restaurant r WHERE r.id=?1")
     Restaurant getWithMeals(int id);
-
-    @Override
-    @Transactional
-    Restaurant save(Restaurant restaurant);
 }
