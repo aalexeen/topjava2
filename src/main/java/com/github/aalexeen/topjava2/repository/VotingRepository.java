@@ -1,8 +1,8 @@
 package com.github.aalexeen.topjava2.repository;
 
+import com.github.aalexeen.topjava2.model.User;
 import com.github.aalexeen.topjava2.model.Voting;
 import org.springframework.transaction.annotation.Transactional;
-import com.github.aalexeen.topjava2.model.User;
 
 import java.time.LocalDate;
 

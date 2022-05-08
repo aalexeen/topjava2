@@ -18,7 +18,7 @@ public class RestaurantTo extends NamedTo {
     @NotNull
     Integer restaurantId;
 
-    public RestaurantTo(Integer id, String  name, Integer restaurantId ) {
+    public RestaurantTo(Integer id, String name, Integer restaurantId) {
         super(id, name);
         this.restaurantId = restaurantId;
     }

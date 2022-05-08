@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @project topjava2
  */
 @Transactional(readOnly = true)
-public interface MealRepository extends BaseRepository<Meal>{
+public interface MealRepository extends BaseRepository<Meal> {
 
     @Override
     @Transactional

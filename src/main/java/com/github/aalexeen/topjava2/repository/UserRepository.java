@@ -1,7 +1,7 @@
 package com.github.aalexeen.topjava2.repository;
 
-import org.springframework.transaction.annotation.Transactional;
 import com.github.aalexeen.topjava2.model.User;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 

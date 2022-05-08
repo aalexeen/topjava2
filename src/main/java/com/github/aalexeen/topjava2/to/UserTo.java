@@ -1,9 +1,9 @@
 package com.github.aalexeen.topjava2.to;
 
+import com.github.aalexeen.topjava2.HasIdAndEmail;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.Value;
-import com.github.aalexeen.topjava2.HasIdAndEmail;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

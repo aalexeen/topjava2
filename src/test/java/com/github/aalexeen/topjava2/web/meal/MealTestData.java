@@ -16,7 +16,7 @@ import static java.time.LocalDateTime.of;
  */
 public class MealTestData {
 
-    public static final MatcherFactory<Meal> MEAL_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Meal.class, "restaurant","dateTime");
+    public static final MatcherFactory<Meal> MEAL_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Meal.class, "restaurant", "dateTime");
     public static MatcherFactory<Meal> MEAL_TO_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Meal.class, "dateTime");
 
     public static final int NOT_FOUND = 10;

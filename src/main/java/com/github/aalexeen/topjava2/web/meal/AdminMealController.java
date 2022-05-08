@@ -1,5 +1,6 @@
 package com.github.aalexeen.topjava2.web.meal;
 
+import com.github.aalexeen.topjava2.error.NotNullParameter;
 import com.github.aalexeen.topjava2.model.Meal;
 import com.github.aalexeen.topjava2.model.Restaurant;
 import com.github.aalexeen.topjava2.to.MealTo;
@@ -11,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import com.github.aalexeen.topjava2.error.NotNullParameter;
 
 import javax.validation.Valid;
 import java.net.URI;

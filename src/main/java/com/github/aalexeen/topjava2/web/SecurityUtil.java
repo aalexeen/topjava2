@@ -1,9 +1,9 @@
 package com.github.aalexeen.topjava2.web;
 
+import com.github.aalexeen.topjava2.model.User;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import com.github.aalexeen.topjava2.model.User;
 
 import static java.util.Objects.requireNonNull;
 

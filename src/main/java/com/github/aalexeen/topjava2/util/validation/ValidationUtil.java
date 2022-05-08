@@ -8,8 +8,6 @@ import com.github.aalexeen.topjava2.model.Role;
 import com.github.aalexeen.topjava2.web.AuthUser;
 import lombok.experimental.UtilityClass;
 
-import static com.github.aalexeen.topjava2.util.DateTimeUtil.asLocalDateTime;
-
 @UtilityClass
 public class ValidationUtil {
 

@@ -1,5 +1,6 @@
 package com.github.aalexeen.topjava2.web.restaurant;
 
+import com.github.aalexeen.topjava2.error.ForbiddenException;
 import com.github.aalexeen.topjava2.model.Restaurant;
 import com.github.aalexeen.topjava2.web.AuthUser;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -12,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import com.github.aalexeen.topjava2.error.ForbiddenException;
 
 import javax.validation.Valid;
 import java.net.URI;

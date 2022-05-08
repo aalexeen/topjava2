@@ -1,8 +1,11 @@
 package com.github.aalexeen.topjava2.to;
 
-import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 import com.github.aalexeen.topjava2.util.DateTimeUtil;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+import lombok.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

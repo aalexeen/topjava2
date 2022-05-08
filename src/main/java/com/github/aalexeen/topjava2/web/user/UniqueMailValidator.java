@@ -1,5 +1,6 @@
 package com.github.aalexeen.topjava2.web.user;
 
+import com.github.aalexeen.topjava2.HasIdAndEmail;
 import com.github.aalexeen.topjava2.repository.UserRepository;
 import com.github.aalexeen.topjava2.web.GlobalExceptionHandler;
 import com.github.aalexeen.topjava2.web.SecurityUtil;
@@ -8,7 +9,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
-import com.github.aalexeen.topjava2.HasIdAndEmail;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -39,7 +39,8 @@ public class UniqueMailValidator implements org.springframework.validation.Valid
                             // Workaround for update with nullable id in user (in request body)
                             // ValidationUtil.assureIdConsistent called after this validation
                             String requestURI = request.getRequestURI();
-                            if (requestURI.endsWith("/" + dbId) || (dbId == SecurityUtil.authId() && requestURI.contains("/profile"))) return;
+                            if (requestURI.endsWith("/" + dbId) || (dbId == SecurityUtil.authId() && requestURI.contains("/profile")))
+                                return;
                         }
                         errors.rejectValue("email", null, GlobalExceptionHandler.EXCEPTION_DUPLICATE_EMAIL);
                     });

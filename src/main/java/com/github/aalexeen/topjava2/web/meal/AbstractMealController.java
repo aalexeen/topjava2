@@ -1,13 +1,13 @@
 package com.github.aalexeen.topjava2.web.meal;
 
 import com.github.aalexeen.topjava2.model.Meal;
+import com.github.aalexeen.topjava2.repository.MealRepository;
 import com.github.aalexeen.topjava2.repository.RestaurantRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
-import com.github.aalexeen.topjava2.repository.MealRepository;
 
 import static com.github.aalexeen.topjava2.util.validation.ValidationUtil.checkNotFoundWithId;
 

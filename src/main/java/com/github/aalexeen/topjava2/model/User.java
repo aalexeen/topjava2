@@ -1,11 +1,11 @@
 package com.github.aalexeen.topjava2.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.aalexeen.topjava2.HasIdAndEmail;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.util.CollectionUtils;
-import com.github.aalexeen.topjava2.HasIdAndEmail;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;

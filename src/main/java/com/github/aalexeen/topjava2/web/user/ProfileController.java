@@ -1,5 +1,8 @@
 package com.github.aalexeen.topjava2.web.user;
 
+import com.github.aalexeen.topjava2.model.User;
+import com.github.aalexeen.topjava2.to.UserTo;
+import com.github.aalexeen.topjava2.util.UserUtil;
 import com.github.aalexeen.topjava2.web.AuthUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
@@ -12,9 +15,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import com.github.aalexeen.topjava2.model.User;
-import com.github.aalexeen.topjava2.to.UserTo;
-import com.github.aalexeen.topjava2.util.UserUtil;
 
 import javax.validation.Valid;
 import java.net.URI;

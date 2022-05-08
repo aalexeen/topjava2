@@ -1,10 +1,10 @@
 package com.github.aalexeen.topjava2.web;
 
+import com.github.aalexeen.topjava2.model.Role;
+import com.github.aalexeen.topjava2.model.User;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.lang.NonNull;
-import com.github.aalexeen.topjava2.model.Role;
-import com.github.aalexeen.topjava2.model.User;
 
 import java.util.Set;
 

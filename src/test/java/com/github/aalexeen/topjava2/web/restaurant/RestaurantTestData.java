@@ -6,8 +6,6 @@ import com.github.aalexeen.topjava2.web.MatcherFactory;
 
 import java.util.List;
 
-import static java.time.LocalDateTime.of;
-
 /**
  * @author alex_jd on 4/27/22
  * @project topjava2
@@ -37,7 +35,7 @@ public class RestaurantTestData {
     }
 
     public static RestaurantTo getInvalidTo() {
-        return new RestaurantTo(null,  "", 1);
+        return new RestaurantTo(null, "", 1);
     }
 
     public static Restaurant getNewFromTo(RestaurantTo RestaurantTo) {

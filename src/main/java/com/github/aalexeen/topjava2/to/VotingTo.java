@@ -1,8 +1,8 @@
 package com.github.aalexeen.topjava2.to;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
 import com.github.aalexeen.topjava2.util.DateTimeUtil;
+import lombok.*;
 
 import java.io.Serial;
 import java.time.LocalDate;

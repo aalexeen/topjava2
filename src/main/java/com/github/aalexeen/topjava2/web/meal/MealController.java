@@ -1,5 +1,6 @@
 package com.github.aalexeen.topjava2.web.meal;
 
+import com.github.aalexeen.topjava2.model.Meal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.github.aalexeen.topjava2.model.Meal;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class MealController extends AbstractMealController {
     @Cacheable
     public List<Meal> getAll() {
         log.info("getAll");
-        return mealRepository.findAll(Sort.by(Sort.Direction.ASC,  "id"));
+        return mealRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
 

@@ -4,6 +4,7 @@ import com.github.aalexeen.topjava2.model.User;
 import com.github.aalexeen.topjava2.repository.UserRepository;
 import com.github.aalexeen.topjava2.to.UserTo;
 import com.github.aalexeen.topjava2.util.JsonUtil;
+import com.github.aalexeen.topjava2.util.UserUtil;
 import com.github.aalexeen.topjava2.web.AbstractControllerTest;
 import com.github.aalexeen.topjava2.web.GlobalExceptionHandler;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import com.github.aalexeen.topjava2.util.UserUtil;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

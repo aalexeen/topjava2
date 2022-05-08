@@ -1,9 +1,9 @@
 package com.github.aalexeen.topjava2.repository;
 
+import com.github.aalexeen.topjava2.model.Restaurant;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
-import com.github.aalexeen.topjava2.model.Restaurant;
 
 /**
  * @author alex_jd on 4/20/22

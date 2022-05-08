@@ -1,6 +1,7 @@
 package com.github.aalexeen.topjava2.web.meal;
 
 import com.github.aalexeen.topjava2.model.Meal;
+import com.github.aalexeen.topjava2.repository.MealRepository;
 import com.github.aalexeen.topjava2.to.MealTo;
 import com.github.aalexeen.topjava2.util.JsonUtil;
 import com.github.aalexeen.topjava2.web.AbstractControllerTest;
@@ -10,14 +11,13 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import com.github.aalexeen.topjava2.repository.MealRepository;
 
+import static com.github.aalexeen.topjava2.web.meal.MealTestData.*;
+import static com.github.aalexeen.topjava2.web.user.UserTestData.ADMIN_MAIL;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static com.github.aalexeen.topjava2.web.meal.MealTestData.*;
-import static com.github.aalexeen.topjava2.web.user.UserTestData.ADMIN_MAIL;
 
 /**
  * @author alex_jd on 4/27/22

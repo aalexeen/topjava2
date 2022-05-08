@@ -1,6 +1,12 @@
 package com.github.aalexeen.topjava2.web.voting;
 
+import com.github.aalexeen.topjava2.error.NotNullParameter;
+import com.github.aalexeen.topjava2.error.TooLateException;
+import com.github.aalexeen.topjava2.model.Restaurant;
+import com.github.aalexeen.topjava2.model.Voting;
+import com.github.aalexeen.topjava2.to.VotingTo;
 import com.github.aalexeen.topjava2.util.VotingUtil;
+import com.github.aalexeen.topjava2.web.SecurityUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -11,12 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import com.github.aalexeen.topjava2.error.NotNullParameter;
-import com.github.aalexeen.topjava2.error.TooLateException;
-import com.github.aalexeen.topjava2.model.Restaurant;
-import com.github.aalexeen.topjava2.model.Voting;
-import com.github.aalexeen.topjava2.to.VotingTo;
-import com.github.aalexeen.topjava2.web.SecurityUtil;
 
 import javax.validation.Valid;
 import java.net.URI;
