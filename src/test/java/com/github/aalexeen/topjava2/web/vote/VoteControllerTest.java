@@ -32,7 +32,7 @@ public class VoteControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = USER_MAIL)
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + (VOTE1_ID + 7)))
+        perform(MockMvcRequestBuilders.get(REST_URL))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -42,7 +42,8 @@ public class VoteControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = USER_MAIL)
     void getNotFound() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + NONEXISTENT_VOTE_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL + "byDay")
+                .param("localDate", "2005-05-06"))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }

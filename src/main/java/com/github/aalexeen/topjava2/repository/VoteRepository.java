@@ -2,9 +2,11 @@ package com.github.aalexeen.topjava2.repository;
 
 import com.github.aalexeen.topjava2.model.User;
 import com.github.aalexeen.topjava2.model.Vote;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 /**
  * @author alex_jd on 4/20/22
@@ -13,5 +15,9 @@ import java.time.LocalDate;
 @Transactional(readOnly = true)
 public interface VoteRepository extends BaseRepository<Vote> {
 
-    Vote getVotingByLocalDateAndUser(LocalDate localDate, User user);
+    Vote getVoteByLocalDateAndUser(LocalDate localDate, User user);
+
+    @Query("SELECT v FROM Vote v WHERE v.user=?1 AND v.localDate=?2")
+    Vote getVoteByUserAndLocalDate(User user, LocalDate localDate);
+
 }

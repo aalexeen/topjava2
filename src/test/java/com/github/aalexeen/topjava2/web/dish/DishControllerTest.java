@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 class DishControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = MealController.REST_URL + '/';
+    private static final String REST_URL = DishController.REST_URL + '/';
 
     @Test
     @WithUserDetails(value = USER_MAIL)
@@ -42,15 +42,5 @@ class DishControllerTest extends AbstractControllerTest {
     void getUnauth() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + DISH1_ID))
                 .andExpect(status().isUnauthorized());
-    }
-
-    @Test
-    @WithUserDetails(value = USER_MAIL)
-    void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(DISH_TO_MATCHER.contentJson(DISHES));
     }
 }

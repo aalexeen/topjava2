@@ -25,14 +25,14 @@ public class VoteTestData {
     public static final int VOTE1_ID = 1;
     public static final int NONEXISTENT_VOTE_ID = 9;
 
-    public static final Vote VOTE_1 = new Vote(VOTE1_ID, new User(1, null), new Restaurant(1, null), LocalDate.of(2022, 4, 16), LocalTime.of(19, 44, 15));
-    public static final Vote VOTE_2 = new Vote(VOTE1_ID + 1, new User(1, null), new Restaurant(1, null), LocalDate.of(2022, 4, 16), LocalTime.of(19, 44, 15));
-    public static final Vote VOTE_3 = new Vote(VOTE1_ID + 2, new User(2, null), new Restaurant(2, null), LocalDate.of(2022, 4, 17), LocalTime.of(19, 44, 15));
-    public static final Vote VOTE_4 = new Vote(VOTE1_ID + 3, new User(1, null), new Restaurant(2, null), LocalDate.of(2022, 4, 17), LocalTime.of(19, 44, 15));
-    public static final Vote VOTE_5 = new Vote(VOTE1_ID + 4, new User(2, null), new Restaurant(3, null), LocalDate.of(2022, 4, 18), LocalTime.of(19, 44, 15));
-    public static final Vote VOTE_6 = new Vote(VOTE1_ID + 5, new User(1, null), new Restaurant(2, null), LocalDate.of(2022, 4, 18), LocalTime.of(19, 44, 15));
-    public static final Vote VOTE_7 = new Vote(VOTE1_ID + 6, new User(1, null), new Restaurant(1, null), LocalDate.of(2022, 4, 19), LocalTime.of(19, 44, 15));
-    public static final Vote VOTE_8 = new Vote(VOTE1_ID + 7, new User(1, null), new Restaurant(1, null), LocalDate.now(), LocalTime.now());
+    public static final Vote VOTE_1 = new Vote(VOTE1_ID, new User(1), new Restaurant(1, null), LocalDate.of(2022, 4, 16), LocalTime.of(19, 44, 15));
+    public static final Vote VOTE_2 = new Vote(VOTE1_ID + 1, new User(1), new Restaurant(1, null), LocalDate.of(2022, 4, 16), LocalTime.of(19, 44, 15));
+    public static final Vote VOTE_3 = new Vote(VOTE1_ID + 2, new User(2), new Restaurant(2, null), LocalDate.of(2022, 4, 17), LocalTime.of(19, 44, 15));
+    public static final Vote VOTE_4 = new Vote(VOTE1_ID + 3, new User(1), new Restaurant(2, null), LocalDate.of(2022, 4, 17), LocalTime.of(19, 44, 15));
+    public static final Vote VOTE_5 = new Vote(VOTE1_ID + 4, new User(2), new Restaurant(3, null), LocalDate.of(2022, 4, 18), LocalTime.of(19, 44, 15));
+    public static final Vote VOTE_6 = new Vote(VOTE1_ID + 5, new User(1), new Restaurant(2, null), LocalDate.of(2022, 4, 18), LocalTime.of(19, 44, 15));
+    public static final Vote VOTE_7 = new Vote(VOTE1_ID + 6, new User(1), new Restaurant(1, null), LocalDate.now(), LocalTime.now());
+    public static final Vote VOTE_8 = new Vote(VOTE1_ID + 7, new User(1), new Restaurant(1, null), LocalDate.now(), LocalTime.now());
 
     public static final List<Vote> VOTES = List.of(VOTE_1, VOTE_2, VOTE_3, VOTE_4, VOTE_5, VOTE_6, VOTE_7, VOTE_8);
 
@@ -53,7 +53,7 @@ public class VoteTestData {
     }
 
     public static Vote getNewFromTo(VoteTo voteTo) {
-        return new Vote(VOTE1_ID, new User(voteTo.getUserId(), null), new Restaurant(voteTo.getRestaurantId(), null), voteTo.getDate(), voteTo.getTime());
+        return new Vote(VOTE1_ID, new User(voteTo.getUserId()), new Restaurant(voteTo.getRestaurantId(), null), voteTo.getDate(), voteTo.getTime());
     }
 
     public static VoteTo getUpdated() {

@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 class AdminDishControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = AdminMealController.REST_URL + '/';
+    private static final String REST_URL = AdminDishController.REST_URL + '/';
 
     @Autowired
     private DishRepository dishRepository;
@@ -42,11 +42,22 @@ class AdminDishControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
+    void getAll() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(DISH_TO_MATCHER.contentJson(DISHES));
+    }
+
+    @Test
+    @WithUserDetails(value = ADMIN_MAIL)
     void delete() throws Exception {
         perform(MockMvcRequestBuilders.delete(REST_URL + DISH1_ID))
                 .andDo(print())
                 .andExpect(status().isNoContent());
-        assertFalse(dishRepository.findById(DISH1_ID).isPresent());
+        assertFalse(dishRepository.findById(DISH1_ID)
+                .isPresent());
     }
 
     @Test

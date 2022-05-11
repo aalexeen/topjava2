@@ -5,10 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -22,25 +24,12 @@ import java.util.List;
 @CacheConfig(cacheNames = "vote")
 public class AdminVoteController extends AbstractVoteController {
 
-    static final String REST_URL = "/api/admin/vote";
+    static final String REST_URL = "/api/admin/votes";
 
-    @Override
-    @GetMapping("/{id}")
-    public ResponseEntity<Vote> get(@PathVariable int id) {
-        return super.get(id);
-    }
-
-    @GetMapping()
+    @GetMapping
     @Cacheable
     public List<Vote> getAll() {
         log.info("getAll");
         return voteRepository.findAll(Sort.by(Sort.Direction.DESC, "localDate", "localTime"));
-    }
-
-    @Override
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id) {
-        super.delete(id);
     }
 }

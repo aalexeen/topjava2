@@ -16,7 +16,7 @@ import static com.github.aalexeen.topjava2.util.validation.ValidationUtil.checkN
  * @project topjava2
  */
 @Slf4j
-public abstract class AbstractMealController {
+public abstract class AbstractDishController {
 
     @Autowired
     protected DishRepository dishRepository;

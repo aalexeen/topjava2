@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ import java.util.List;
 @CacheConfig(cacheNames = "restaurant")
 public class RestaurantController extends AbstractRestaurantController {
 
-    static final String REST_URL = "/api/profile/restaurant";
+    static final String REST_URL = "/api/restaurants";
 
     @Override
     @GetMapping("/{id}")
@@ -33,7 +34,7 @@ public class RestaurantController extends AbstractRestaurantController {
         return super.get(id);
     }
 
-    @GetMapping()
+    @GetMapping
     @Cacheable
     public List<Restaurant> getAll() {
         log.info("getAll");

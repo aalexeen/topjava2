@@ -29,7 +29,7 @@ public class AppConfig {
     //    https://stackoverflow.com/a/46947975/548473
     @Bean
     Module module() {
-        return new Hibernate5Module();
+        return new Hibernate5Module().enable(Hibernate5Module.Feature.SERIALIZE_IDENTIFIER_FOR_LAZY_NOT_LOADED_OBJECTS);
     }
 
     @Autowired

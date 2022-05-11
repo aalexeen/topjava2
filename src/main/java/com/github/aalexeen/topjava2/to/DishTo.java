@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serial;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -32,14 +33,14 @@ public class DishTo extends BaseTo {
 
     @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
-    LocalDateTime dateTime;
+    LocalDate date;
 
     @NotNull
     Integer restaurantId;
 
-    public DishTo(Integer id, LocalDateTime dateTime, String description, Integer restaurantId) {
+    public DishTo(Integer id, LocalDate date, String description, Integer restaurantId) {
         super(id);
-        this.dateTime = dateTime;
+        this.date = date;
         this.description = description;
         this.restaurantId = restaurantId;
     }

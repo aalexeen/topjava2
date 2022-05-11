@@ -7,6 +7,8 @@ import com.github.aalexeen.topjava2.to.DishTo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 import static com.github.aalexeen.topjava2.util.validation.ValidationUtil.*;
 
@@ -23,17 +26,24 @@ import static com.github.aalexeen.topjava2.util.validation.ValidationUtil.*;
  * @project topjava2
  */
 @RestController
-@RequestMapping(value = AdminMealController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = AdminDishController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @CacheConfig(cacheNames = "dish")
-public class AdminMealController extends AbstractMealController {
+public class AdminDishController extends AbstractDishController {
 
-    static final String REST_URL = "/api/admin/dish";
+    static final String REST_URL = "/api/admin/dishes";
 
     @Override
     @GetMapping("/{id}")
     public ResponseEntity<Dish> get(@PathVariable int id) {
         return super.get(id);
+    }
+
+    @GetMapping
+    @Cacheable
+    public List<Dish> getAll() {
+        log.info("getAll");
+        return dishRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @DeleteMapping("/{id}")

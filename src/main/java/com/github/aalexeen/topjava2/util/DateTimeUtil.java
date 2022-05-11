@@ -25,11 +25,11 @@ public class DateTimeUtil {
     private static final LocalDateTime MIN_DATE = LocalDateTime.of(1, 1, 1, 0, 0);
     private static final LocalDateTime MAX_DATE = LocalDateTime.of(3000, 1, 1, 0, 0);
 
-    public static LocalDateTime asLocalDateTime(Date date) {
+    /*public static LocalDateTime asLocalDateTime(Date date) {
         return asLocalDateTime(date, ZoneId.systemDefault());
-    }
+    }*/
 
-    public static LocalDateTime asLocalDateTime(Date date, ZoneId zone) {
+    /*public static LocalDateTime asLocalDateTime(Date date, ZoneId zone) {
         if (date == null) {
             return null;
         }
@@ -39,7 +39,7 @@ public class DateTimeUtil {
         } else {
             return Instant.ofEpochMilli(date.getTime()).atZone(zone).toLocalDateTime();
         }
-    }
+    }*/
 
     public static LocalDateTime atStartOfDayOrMin(LocalDate localDate) {
         return localDate != null ? localDate.atStartOfDay() : MIN_DATE;

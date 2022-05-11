@@ -12,6 +12,9 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 /**
  * @author alex_jd on 4/21/22
  * @project topjava2
@@ -32,16 +35,17 @@ public abstract class AbstractVoteController {
         return voteRepository.getBetweenHalfOpen(atStartOfDayOrMin(startDate), atStartOfNextDayOrMax(endDate), userId);
     }*/
 
-    public ResponseEntity<Vote> get(int id) {
-        log.info("get {}", id);
-        return ResponseEntity.of(voteRepository.findById(id));
+    public ResponseEntity<Vote> get(LocalDate localDate) {
+        User user = SecurityUtil.authUser();
+        log.info("get vote for user {}", user.getId());
+        return ResponseEntity.of(Optional.ofNullable(voteRepository.getVoteByUserAndLocalDate(user, localDate)));
     }
 
-    @CacheEvict(value = "vote", allEntries = true)
+    /*@CacheEvict(value = "vote", allEntries = true)
     public void delete(int id) {
         log.info("delete {}", id);
         voteRepository.deleteExisted(id);
-    }
+    }*/
 
     public Vote create(Vote vote) {
         Assert.notNull(vote, "vote must not be null");
