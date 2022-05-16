@@ -23,11 +23,11 @@ class DishControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = USER_MAIL)
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + DISH1_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL + (DISH1_ID + 7)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(DISH_MATCHER.contentJson(DISH_1));
+                .andExpect(DISH_MATCHER.contentJson(DISH_8));
     }
 
     @Test

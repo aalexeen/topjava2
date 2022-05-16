@@ -38,7 +38,7 @@ public class Dish extends BaseEntity {
     @NotNull
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     //@DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
-    private LocalDate date = LocalDate.now();
+    private LocalDate date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)

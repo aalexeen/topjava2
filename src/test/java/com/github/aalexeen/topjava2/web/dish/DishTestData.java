@@ -32,8 +32,8 @@ public class DishTestData {
     public static final Dish DISH_4 = new Dish(DISH1_ID + 3, LocalDate.of(2020, Month.JANUARY, 31), "salami");
     public static final Dish DISH_5 = new Dish(DISH1_ID + 4, LocalDate.of(2020, Month.JANUARY, 31), "nuts");
     public static final Dish DISH_6 = new Dish(DISH1_ID + 5, LocalDate.of(2020, Month.JANUARY, 31), "cabbage");
-    public static final Dish DISH_7 = new Dish(DISH1_ID + 6, LocalDate.of(2020, Month.JANUARY, 31), "chocolate");
-    public static final Dish DISH_8 = new Dish(DISH1_ID + 7, LocalDate.of(2020, Month.JANUARY, 31), "ice cream");
+    public static final Dish DISH_7 = new Dish(DISH1_ID + 6, LocalDate.now(), "chocolate");
+    public static final Dish DISH_8 = new Dish(DISH1_ID + 7, LocalDate.now(), "ice cream");
 
     public static final List<Dish> DISHES = List.of(DISH_1, DISH_2, DISH_3, DISH_4, DISH_5, DISH_6, DISH_7, DISH_8);
 
@@ -58,6 +58,6 @@ public class DishTestData {
     }
 
     public static DishTo getUpdatedTo() {
-        return new DishTo(DISH1_ID, DISH_1.getDate().plus(2, ChronoUnit.DAYS), "Renewed bread", 1);
+        return new DishTo(DISH1_ID, DISH_1.getDate(), "Renewed bread", 1);
     }
 }

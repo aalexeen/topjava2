@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class RestaurantTestData {
 
-    public static final MatcherFactory<Restaurant> RESTAURANT_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "registered");
+    public static final MatcherFactory<Restaurant> RESTAURANT_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "registered", "dishes");
     public static MatcherFactory<Restaurant> RESTAURANT_TO_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "dateTime");
 
     public static final int NOT_FOUND = 10;
@@ -27,7 +27,7 @@ public class RestaurantTestData {
 
     public static final List<Restaurant> restaurants = List.of(restaurant1, restaurant2, restaurant3);
 
-    public static final ArrayList<Restaurant> restaurantsLocalDate = (ArrayList<Restaurant>) List.of(restaurant3);
+    public static final List<Restaurant> restaurantsLocalDate = List.of(restaurant3);
 
     public static Restaurant getNew() {
         return new Restaurant(null, "Created restaurant");

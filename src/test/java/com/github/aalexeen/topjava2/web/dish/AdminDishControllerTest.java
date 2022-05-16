@@ -65,7 +65,7 @@ class AdminDishControllerTest extends AbstractControllerTest {
     void update() throws Exception {
         DishTo newDishTo = getUpdatedTo();
         Dish updated = getNewFromTo(newDishTo);
-        newDishTo.setId(null);
+        //newDishTo.setId(null);
         perform(MockMvcRequestBuilders.put(REST_URL + DISH1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newDishTo)))

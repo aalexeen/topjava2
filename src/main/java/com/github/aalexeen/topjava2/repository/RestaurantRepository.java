@@ -16,11 +16,11 @@ import java.util.List;
 public interface RestaurantRepository extends BaseRepository<Restaurant> {
 
     @EntityGraph(attributePaths = {"dishes"}, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT r FROM Restaurant r LEFT JOIN Dish d ON r.id=d.restaurant.id WHERE r.id=?1 AND d.date=?2")
-    Restaurant getWithMeals(int id, LocalDate localDate);
+    @Query("SELECT r FROM Restaurant r") // LEFT JOIN Dish d ON r.id=d.restaurant.id WHERE r.id=?1 AND d.date=?2
+    Restaurant getWithDishes(int id, LocalDate localDate);
 
     @EntityGraph(value = "all_restaurants_with_dishes", type = EntityGraph.EntityGraphType.LOAD)
     @Query(value = "SELECT distinct r FROM Restaurant r LEFT JOIN Dish d ON r.id=d.restaurant.id WHERE d.date=?1 ")
-    List<Restaurant> getAllWithMeals(LocalDate localDate);
+    List<Restaurant> getAllWithDishes(LocalDate localDate);
 
 }

@@ -1,5 +1,6 @@
 package com.github.aalexeen.topjava2.web.dish;
 
+import com.github.aalexeen.topjava2.error.MismatchDishBelong;
 import com.github.aalexeen.topjava2.model.Dish;
 import com.github.aalexeen.topjava2.to.DishTo;
 import lombok.extern.slf4j.Slf4j;
@@ -71,9 +72,11 @@ public class AdminDishController extends AbstractDishController {
     @CacheEvict(allEntries = true)
     public void update(@Valid @RequestBody DishTo dishTo, @PathVariable int id) {
         assureIdConsistent(dishTo, id);
-        Dish dish = dishRepository.getById(dishTo.getId());
-        assureIdConsistent(restaurantRepository.getById(dishTo.getRestaurantId()), dish.getRestaurant()
-                .getId());
+        /*if (dishRepository.getById(id).getRestaurant().getId() != dishTo.getRestaurantId()) {
+            throw new MismatchDishBelong("The dish doesn't belong to current restaurant");
+        }*/
+        Dish dish = new Dish();
+        dish.setId(id);
         dish.setDescription(dishTo.getDescription());
         log.info("update {} with id={}", dish, id);
         super.update(dish);

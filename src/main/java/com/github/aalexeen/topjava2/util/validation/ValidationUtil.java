@@ -5,8 +5,6 @@ import com.github.aalexeen.topjava2.error.CreatingException;
 import com.github.aalexeen.topjava2.error.IllegalRequestDataException;
 import com.github.aalexeen.topjava2.error.NotFoundException;
 import com.github.aalexeen.topjava2.error.TooLateException;
-import com.github.aalexeen.topjava2.model.Role;
-import com.github.aalexeen.topjava2.web.AuthUser;
 import lombok.experimental.UtilityClass;
 
 import java.time.LocalDate;
@@ -19,7 +17,8 @@ public class ValidationUtil {
 
     public static void checkNew(HasId bean) {
         if (!bean.isNew()) {
-            throw new IllegalRequestDataException(bean.getClass().getSimpleName() + " must be new (id=null)");
+            throw new IllegalRequestDataException(bean.getClass()
+                    .getSimpleName() + " must be new (id=null)");
         }
     }
 
@@ -28,7 +27,8 @@ public class ValidationUtil {
         if (bean.isNew()) {
             bean.setId(id);
         } else if (bean.id() != id) {
-            throw new IllegalRequestDataException(bean.getClass().getSimpleName() + " must has id=" + id);
+            throw new IllegalRequestDataException(bean.getClass()
+                    .getSimpleName() + " must has id=" + id);
         }
     }
 
@@ -65,9 +65,5 @@ public class ValidationUtil {
         if (!found) {
             throw new NotFoundException("Not found entity with " + msg);
         }
-    }
-
-    public static boolean checkPrivileges(AuthUser authUser) {
-        return authUser.getRoles().contains(Role.ADMIN);
     }
 }

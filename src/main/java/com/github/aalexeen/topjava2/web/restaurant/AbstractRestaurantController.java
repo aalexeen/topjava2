@@ -29,14 +29,14 @@ public abstract class AbstractRestaurantController {
         return ResponseEntity.of(repository.findById(id));
     }
 
-    public ResponseEntity<List<Restaurant>>  getAllWithMeals(LocalDate localDate) {
+    public ResponseEntity<List<Restaurant>> getAllWithDishes(LocalDate localDate) {
         log.info("get all restaurants with meals");
-        return ResponseEntity.of(Optional.ofNullable(repository.getAllWithMeals(localDate)));
+        return ResponseEntity.of(Optional.ofNullable(repository.getAllWithDishes(localDate)));
     }
 
-    public Restaurant getWithMeals(int id, LocalDate localDate) {
+    public Restaurant getWithDishes(int id, LocalDate localDate) {
         log.info("getWithMeals {}", id);
-        return checkNotFoundWithId(repository.getWithMeals(id, localDate), id);
+        return checkNotFoundWithId(repository.getWithDishes(id, localDate), id);
     }
 
     @CacheEvict(value = "restaurant", allEntries = true)

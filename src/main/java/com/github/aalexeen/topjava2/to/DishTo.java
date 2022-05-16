@@ -20,13 +20,13 @@ import java.time.LocalDateTime;
  * @project topjava2
  */
 @Value
-//@Getter
+@Getter
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class DishTo extends BaseTo {
 
-    /*@Serial
-    private static final long serialVersionUID = 1L;*/
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @NotBlank
     @Size(min = 2, max = 120)

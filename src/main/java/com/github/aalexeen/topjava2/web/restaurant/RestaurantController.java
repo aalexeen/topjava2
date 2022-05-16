@@ -2,10 +2,8 @@ package com.github.aalexeen.topjava2.web.restaurant;
 
 import com.github.aalexeen.topjava2.model.Restaurant;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.internal.util.privilegedactions.LoadClass;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,12 +37,12 @@ public class RestaurantController extends AbstractRestaurantController {
     @Cacheable
     public ResponseEntity<List<Restaurant>>  getAll() {
         log.info("getAll");
-        return super.getAllWithMeals(LocalDate.now());
+        return super.getAllWithDishes(LocalDate.now());
     }
 
     @GetMapping("/{id}/with-menu")
     @Cacheable
-    public Restaurant getWithMeals(@PathVariable int id) {
-        return super.getWithMeals(id, LocalDate.now());
+    public Restaurant getWithDishes(@PathVariable int id) {
+        return super.getWithDishes(id, LocalDate.now());
     }
 }
