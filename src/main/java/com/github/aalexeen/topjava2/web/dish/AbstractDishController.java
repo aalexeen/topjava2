@@ -9,6 +9,10 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
 import static com.github.aalexeen.topjava2.util.validation.ValidationUtil.checkNotFoundWithId;
 
 /**
@@ -27,6 +31,16 @@ public abstract class AbstractDishController {
     public ResponseEntity<Dish> get(int id) {
         log.info("get {}", id);
         return ResponseEntity.of(dishRepository.findById(id));
+    }
+
+    public ResponseEntity<List<Dish>> getAllByRestaurantId(int id) {
+        log.info("get all by restaurant id {} + localDate", id);
+        return ResponseEntity.of(Optional.ofNullable(dishRepository.findAllByRestaurantId(id)));
+    }
+
+    public ResponseEntity<Dish> getById(int id) {
+        log.info("get {} + localDate", id);
+        return ResponseEntity.of(Optional.ofNullable(dishRepository.getById(id, LocalDate.now())));
     }
 
     @CacheEvict(value = "dish", allEntries = true)

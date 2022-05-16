@@ -53,7 +53,6 @@ public class Vote extends BaseEntity {
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     @JsonFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate localDate = LocalDate.now();
-            //asLocalDateTime(new Date()).toLocalDate();
 
     @Column(name = "time", nullable = false, columnDefinition = "time default now()")
     @NotNull
@@ -61,13 +60,16 @@ public class Vote extends BaseEntity {
     @DateTimeFormat(pattern = DateTimeUtil.TIME_PATTERN)
     @JsonFormat(pattern = DateTimeUtil.TIME_PATTERN)
     private LocalTime localTime = LocalTime.now();
-            //asLocalDateTime(new Date()).toLocalTime();
 
-    public Vote(Integer id, User user, Restaurant restaurant, LocalDate localDate, LocalTime localTime) {
+    public Vote(int id, User user, Restaurant restaurant, LocalDate localDate, LocalTime localTime) {
         super(id);
         this.user = user;
         this.restaurant = restaurant;
         this.localDate = localDate;
         this.localTime = localTime;
+    }
+
+    public Vote(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 }

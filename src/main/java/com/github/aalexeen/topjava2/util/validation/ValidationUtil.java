@@ -4,9 +4,15 @@ import com.github.aalexeen.topjava2.HasId;
 import com.github.aalexeen.topjava2.error.CreatingException;
 import com.github.aalexeen.topjava2.error.IllegalRequestDataException;
 import com.github.aalexeen.topjava2.error.NotFoundException;
+import com.github.aalexeen.topjava2.error.TooLateException;
 import com.github.aalexeen.topjava2.model.Role;
 import com.github.aalexeen.topjava2.web.AuthUser;
 import lombok.experimental.UtilityClass;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import static com.github.aalexeen.topjava2.web.vote.VoteController.DEADLINE;
 
 @UtilityClass
 public class ValidationUtil {
@@ -36,6 +42,13 @@ public class ValidationUtil {
         if (object != null) {
             throw new CreatingException("It is not possible to create the same record with id "
                     + id + " for current user");
+        }
+    }
+
+    public static void checkPossibilityToUpdate(LocalDate localDate) {
+        if (localDate.compareTo(LocalDate.now()) <= 0
+                && DEADLINE.compareTo(LocalTime.now()) <= 0) {
+            throw new TooLateException("it's too late to change your mind");
         }
     }
 

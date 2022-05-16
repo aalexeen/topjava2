@@ -15,8 +15,8 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class UserTo extends NamedTo implements HasIdAndEmail, Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+    /*@Serial
+    private static final long serialVersionUID = 1L;*/
 
     @Email
     @NotBlank

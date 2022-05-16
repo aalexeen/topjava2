@@ -21,8 +21,8 @@ import org.springframework.context.annotation.Configuration;
         info = @Info(
                 title = "REST API documentation",
                 version = "1.0",
-                description = "Приложение по <a href='https://javaops.ru/view/topjava2'>курсу TopJava-2</a> (решение выпускного проекта)",
-                contact = @Contact(url = "https://javaops.ru/#contacts", name = "Grigory Kislin", email = "admin@javaops.ru")
+                description = "Application Restaurant Voting",
+                contact = @Contact(url = "https://www.linkedin.com/in/aleksandr-alekseenko/", name = "Aleksandr Alekseenko", email = "alexan.alekseenko@gmail.com")
         ),
         security = @SecurityRequirement(name = "basicAuth")
 )

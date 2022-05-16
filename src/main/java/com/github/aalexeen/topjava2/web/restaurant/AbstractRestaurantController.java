@@ -3,13 +3,14 @@ package com.github.aalexeen.topjava2.web.restaurant;
 import com.github.aalexeen.topjava2.model.Restaurant;
 import com.github.aalexeen.topjava2.repository.RestaurantRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.internal.util.privilegedactions.LoadClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 import static com.github.aalexeen.topjava2.util.validation.ValidationUtil.checkNotFoundWithId;
 
@@ -28,15 +29,20 @@ public abstract class AbstractRestaurantController {
         return ResponseEntity.of(repository.findById(id));
     }
 
+    public ResponseEntity<List<Restaurant>>  getAllWithMeals(LocalDate localDate) {
+        log.info("get all restaurants with meals");
+        return ResponseEntity.of(Optional.ofNullable(repository.getAllWithMeals(localDate)));
+    }
+
+    public Restaurant getWithMeals(int id, LocalDate localDate) {
+        log.info("getWithMeals {}", id);
+        return checkNotFoundWithId(repository.getWithMeals(id, localDate), id);
+    }
+
     @CacheEvict(value = "restaurant", allEntries = true)
     public void delete(int id) {
         log.info("delete {}", id);
         repository.deleteExisted(id);
-    }
-
-    public Restaurant getWithMeals(int id) {
-        log.info("getWithMeals {}", id);
-        return checkNotFoundWithId(repository.getWithMeals(id), id);
     }
 
     public void update(Restaurant restaurant) {
@@ -48,5 +54,4 @@ public abstract class AbstractRestaurantController {
         Assert.notNull(restaurant, "restaurant must not be null");
         return repository.save(restaurant);
     }
-
 }

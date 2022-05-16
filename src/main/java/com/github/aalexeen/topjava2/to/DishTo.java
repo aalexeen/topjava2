@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.Value;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
@@ -19,13 +20,13 @@ import java.time.LocalDateTime;
  * @project topjava2
  */
 @Value
-@Getter
+//@Getter
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class DishTo extends BaseTo {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    /*@Serial
+    private static final long serialVersionUID = 1L;*/
 
     @NotBlank
     @Size(min = 2, max = 120)
@@ -35,6 +36,7 @@ public class DishTo extends BaseTo {
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     LocalDate date;
 
+    @Range(min = 1)
     @NotNull
     Integer restaurantId;
 

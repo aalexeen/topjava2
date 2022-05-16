@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author alex_jd on 4/21/22
  * @project topjava2
@@ -25,6 +27,13 @@ public class DishController extends AbstractDishController {
     @Override
     @GetMapping("/{id}")
     public ResponseEntity<Dish> get(@PathVariable int id) {
-        return super.get(id);
+        return super.getById(id);
     }
+
+    @Override
+    @GetMapping("/byRestaurant/{id}")
+    public ResponseEntity<List<Dish>> getAllByRestaurantId(@PathVariable int id) {
+        return super.getAllByRestaurantId(id);
+    }
+
 }

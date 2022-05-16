@@ -17,6 +17,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "restaurant", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"}, name = "restaurant_unique_name_idx")})
+@NamedEntityGraph(name = "all_restaurants_with_dishes", attributeNodes = {@NamedAttributeNode("dishes")})
 @Getter
 @Setter
 @NoArgsConstructor

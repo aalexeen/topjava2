@@ -4,6 +4,7 @@ import com.github.aalexeen.topjava2.model.Restaurant;
 import com.github.aalexeen.topjava2.to.RestaurantTo;
 import com.github.aalexeen.topjava2.web.MatcherFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +26,8 @@ public class RestaurantTestData {
     public static final Restaurant restaurant3 = new Restaurant(RESTAURANT1_ID + 2, "RESTAURANT_3");
 
     public static final List<Restaurant> restaurants = List.of(restaurant1, restaurant2, restaurant3);
+
+    public static final ArrayList<Restaurant> restaurantsLocalDate = (ArrayList<Restaurant>) List.of(restaurant3);
 
     public static Restaurant getNew() {
         return new Restaurant(null, "Created restaurant");

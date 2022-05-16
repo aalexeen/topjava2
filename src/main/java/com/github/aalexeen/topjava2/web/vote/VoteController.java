@@ -67,20 +67,11 @@ public class VoteController extends AbstractVoteController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @CacheEvict(allEntries = true)
     public ResponseEntity<Vote> createVoteWithLocation(@Valid @RequestBody VoteTo voteTo) {
-        int restaurantId;
-        if (voteTo.getRestaurantId() != 0) {
-            restaurantId = voteTo.getRestaurantId();
-        } else {
-            throw new NotNullParameter("The restaurantId parameter should not be 0");
-        }
-
-        checkNotFoundWithId(restaurantRepository.findAll().stream().map(Restaurant::getId).anyMatch(x -> x == restaurantId), restaurantId);
-
-        Vote vote = new Vote();
-        vote.setRestaurant(restaurantRepository.getById(restaurantId));
-        log.info("create {}", vote);
-        checkNew(vote);
+        checkNew(voteTo);
+        int restaurantId = voteTo.getRestaurantId();
         checkPossibilityToCreate(voteRepository.getVoteByLocalDateAndUser(LocalDate.now(), SecurityUtil.authUser()), restaurantId);
+        Vote vote = new Vote(restaurantRepository.getById(restaurantId));
+        log.info("create {}", vote);
         Vote created = super.create(vote);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
@@ -92,21 +83,11 @@ public class VoteController extends AbstractVoteController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @CacheEvict(allEntries = true)
     public void update(@Valid @RequestBody VoteTo voteTo, @PathVariable int id) {
-        LocalDate localDate = voteRepository.findById(id).orElseThrow().getLocalDate();
-        if (localDate.compareTo(LocalDate.now()) <= 0
-                && DEADLINE.compareTo(LocalTime.now()) <= 0) {
-            throw new TooLateException("it's too late to change your mind");
-        }
-
-        Restaurant restaurant = restaurantRepository.getById(voteTo.getRestaurantId());
-        checkNotFoundWithId(restaurant, voteTo.getRestaurantId());
-
-        Vote vote = new Vote();
-        vote.setId(id);
-        vote.setRestaurant(restaurant);
-
+        assureIdConsistent(voteTo, id);
+        checkPossibilityToUpdate(voteRepository.findById(id).orElseThrow().getLocalDate());
+        Vote vote = voteRepository.getById(voteTo.getId());
+        vote.setRestaurant(restaurantRepository.getById(voteTo.getRestaurantId()));
         log.info("update {} with id={}", vote, id);
-        assureIdConsistent(vote, id);
         super.update(vote);
     }
 }

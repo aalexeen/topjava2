@@ -1,8 +1,6 @@
 package com.github.aalexeen.topjava2.web.dish;
 
-import com.github.aalexeen.topjava2.error.NotNullParameter;
 import com.github.aalexeen.topjava2.model.Dish;
-import com.github.aalexeen.topjava2.model.Restaurant;
 import com.github.aalexeen.topjava2.to.DishTo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
@@ -19,7 +17,8 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
-import static com.github.aalexeen.topjava2.util.validation.ValidationUtil.*;
+import static com.github.aalexeen.topjava2.util.validation.ValidationUtil.assureIdConsistent;
+import static com.github.aalexeen.topjava2.util.validation.ValidationUtil.checkNew;
 
 /**
  * @author alex_jd on 4/23/22
@@ -52,51 +51,31 @@ public class AdminDishController extends AbstractDishController {
         super.delete(id);
     }
 
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @CacheEvict(allEntries = true)
+    public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody DishTo dishTo) {
+        checkNew(dishTo);
+        Dish dish = new Dish(dishTo.getDescription(), restaurantRepository.getById(dishTo.getRestaurantId()));
+        log.info("create {}", dish);
+        Dish created = super.create(dish);
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL + "/{id}")
+                .buildAndExpand(created.getId())
+                .toUri();
+        return ResponseEntity.created(uriOfNewResource)
+                .body(created);
+    }
+
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @CacheEvict(allEntries = true)
     public void update(@Valid @RequestBody DishTo dishTo, @PathVariable int id) {
-        Dish dish = new Dish();
-        assureIdConsistent(dish, id);
-        int restaurantId;
-        if (dishTo.getRestaurantId() != 0) {
-            restaurantId = dishTo.getRestaurantId();
-            checkNotFoundWithId(restaurantRepository.findAll().stream().map(Restaurant::getId).anyMatch(x -> x == restaurantId), restaurantId);
-        } else {
-            restaurantId = dishRepository.getById(id).getRestaurant().getId();
-        }
-
-        if (dishTo.getDescription() != null) {
-            dish.setDescription(dishTo.getDescription());
-        } else {
-            dish.setDescription(dishRepository.getById(id).getDescription());
-        }
-        dish.setRestaurant(restaurantRepository.getById(restaurantId));
+        assureIdConsistent(dishTo, id);
+        Dish dish = dishRepository.getById(dishTo.getId());
+        assureIdConsistent(restaurantRepository.getById(dishTo.getRestaurantId()), dish.getRestaurant()
+                .getId());
+        dish.setDescription(dishTo.getDescription());
         log.info("update {} with id={}", dish, id);
-
         super.update(dish);
     }
-
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @CacheEvict(allEntries = true)
-    public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody DishTo dishTo) {
-        int restaurantId;
-        if (dishTo.getRestaurantId() != 0) {
-            restaurantId = dishTo.getRestaurantId();
-        } else {
-            throw new NotNullParameter("The restaurantId parameter should not be 0");
-        }
-
-        checkNotFoundWithId(restaurantRepository.findAll().stream().map(Restaurant::getId).anyMatch(x -> x == restaurantId), restaurantId);
-        Dish dish = new Dish(dishTo.getDescription(), restaurantRepository.getById(restaurantId));
-        log.info("create {}", dish);
-        checkNew(dish);
-        Dish created = super.create(dish);
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{id}")
-                .buildAndExpand(created.getId()).toUri();
-        return ResponseEntity.created(uriOfNewResource).body(created);
-    }
-
-
 }

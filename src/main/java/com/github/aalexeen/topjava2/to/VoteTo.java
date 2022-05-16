@@ -13,15 +13,16 @@ import java.time.LocalTime;
  * @project topjava2
  */
 @Value
-@Getter
-@Setter
+//@Getter
+//@Setter
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class VoteTo extends BaseTo {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    /*@Serial
+    private static final long serialVersionUID = 1L;*/
 
+    @NonNull
     Integer restaurantId;
 
     Integer userId;
