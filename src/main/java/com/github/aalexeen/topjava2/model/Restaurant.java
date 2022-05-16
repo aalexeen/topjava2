@@ -1,7 +1,13 @@
 package com.github.aalexeen.topjava2.model;
 
-import com.fasterxml.jackson.annotation.*;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -34,7 +40,6 @@ public class Restaurant extends NamedEntity {
     @OrderBy("date DESC")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonManagedReference
-    //@JsonIdentityReference(alwaysAsId = true)
     @ToString.Exclude
     private List<Dish> dishes;
 

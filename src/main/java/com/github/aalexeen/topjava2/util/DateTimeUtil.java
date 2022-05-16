@@ -4,10 +4,11 @@ import lombok.experimental.UtilityClass;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
-import java.time.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 /**
  * @author alex_jd on 4/19/22
@@ -25,28 +26,13 @@ public class DateTimeUtil {
     private static final LocalDateTime MIN_DATE = LocalDateTime.of(1, 1, 1, 0, 0);
     private static final LocalDateTime MAX_DATE = LocalDateTime.of(3000, 1, 1, 0, 0);
 
-    /*public static LocalDateTime asLocalDateTime(Date date) {
-        return asLocalDateTime(date, ZoneId.systemDefault());
-    }*/
-
-    /*public static LocalDateTime asLocalDateTime(Date date, ZoneId zone) {
-        if (date == null) {
-            return null;
-        }
-
-        if (date instanceof java.sql.Timestamp) {
-            return ((java.sql.Timestamp) date).toLocalDateTime();
-        } else {
-            return Instant.ofEpochMilli(date.getTime()).atZone(zone).toLocalDateTime();
-        }
-    }*/
-
     public static LocalDateTime atStartOfDayOrMin(LocalDate localDate) {
         return localDate != null ? localDate.atStartOfDay() : MIN_DATE;
     }
 
     public static LocalDateTime atStartOfNextDayOrMax(LocalDate localDate) {
-        return localDate != null ? localDate.plus(1, ChronoUnit.DAYS).atStartOfDay() : MAX_DATE;
+        return localDate != null ? localDate.plus(1, ChronoUnit.DAYS)
+                .atStartOfDay() : MAX_DATE;
     }
 
     public static String toString(LocalDateTime ldt) {

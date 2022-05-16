@@ -1,16 +1,11 @@
 package com.github.aalexeen.topjava2.web.vote;
 
-import com.github.aalexeen.topjava2.error.NotNullParameter;
-import com.github.aalexeen.topjava2.error.TooLateException;
-import com.github.aalexeen.topjava2.model.Restaurant;
 import com.github.aalexeen.topjava2.model.Vote;
 import com.github.aalexeen.topjava2.to.VoteTo;
 import com.github.aalexeen.topjava2.web.SecurityUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +17,6 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 
 import static com.github.aalexeen.topjava2.util.DateTimeUtil.parseLocalDate;
 import static com.github.aalexeen.topjava2.util.validation.ValidationUtil.*;
@@ -57,13 +51,6 @@ public class VoteController extends AbstractVoteController {
         return super.get(date);
     }
 
-    /*@GetMapping
-    @Cacheable
-    public List<Vote> getAll() {
-        log.info("getAll");
-        return voteRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
-    }*/
-
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @CacheEvict(allEntries = true)
     public ResponseEntity<Vote> createVoteWithLocation(@Valid @RequestBody VoteTo voteTo) {
@@ -75,8 +62,10 @@ public class VoteController extends AbstractVoteController {
         Vote created = super.create(vote);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
-                .buildAndExpand(created.getId()).toUri();
-        return ResponseEntity.created(uriOfNewResource).body(created);
+                .buildAndExpand(created.getId())
+                .toUri();
+        return ResponseEntity.created(uriOfNewResource)
+                .body(created);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -84,7 +73,9 @@ public class VoteController extends AbstractVoteController {
     @CacheEvict(allEntries = true)
     public void update(@Valid @RequestBody VoteTo voteTo, @PathVariable int id) {
         assureIdConsistent(voteTo, id);
-        checkPossibilityToUpdate(voteRepository.findById(id).orElseThrow().getLocalDate());
+        checkPossibilityToUpdate(voteRepository.findById(id)
+                .orElseThrow()
+                .getLocalDate());
         Vote vote = voteRepository.getById(voteTo.getId());
         vote.setRestaurant(restaurantRepository.getById(voteTo.getRestaurantId()));
         log.info("update {} with id={}", vote, id);

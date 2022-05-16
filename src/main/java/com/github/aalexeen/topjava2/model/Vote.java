@@ -32,19 +32,15 @@ public class Vote extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    //@JsonBackReference
-    @NotNull//(groups = View.Persist.class)
+    @NotNull
     @ToString.Exclude
-    //@JsonIgnoreProperties({"name", "email", "enabled", "registered", "roles"})
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    //@JsonBackReference
-    @NotNull//(groups = View.Persist.class)
+    @NotNull
     @ToString.Exclude
-    //@JsonIgnoreProperties({"name", "registered", "meals"})
     private Restaurant restaurant;
 
     @Column(name = "date", nullable = false, columnDefinition = "date default now()", updatable = false)

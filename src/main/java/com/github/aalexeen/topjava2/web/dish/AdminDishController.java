@@ -1,6 +1,5 @@
 package com.github.aalexeen.topjava2.web.dish;
 
-import com.github.aalexeen.topjava2.error.MismatchDishBelong;
 import com.github.aalexeen.topjava2.model.Dish;
 import com.github.aalexeen.topjava2.to.DishTo;
 import lombok.extern.slf4j.Slf4j;

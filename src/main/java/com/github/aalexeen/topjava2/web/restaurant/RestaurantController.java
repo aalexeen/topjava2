@@ -35,7 +35,7 @@ public class RestaurantController extends AbstractRestaurantController {
 
     @GetMapping
     @Cacheable
-    public ResponseEntity<List<Restaurant>>  getAll() {
+    public ResponseEntity<List<Restaurant>> getAll() {
         log.info("getAll");
         return super.getAllWithDishes(LocalDate.now());
     }

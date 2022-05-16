@@ -21,7 +21,6 @@ public class VoteTestData {
             "user.registered", "user.email", "user.name", "user.password", "user.roles");
     public static MatcherFactory<Vote> VOTE_TO_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Vote.class, "localDate", "localTime");
 
-    public static final int NOT_FOUND = 10;
     public static final int VOTE1_ID = 1;
     public static final int NONEXISTENT_VOTE_ID = 9;
 
@@ -36,9 +35,6 @@ public class VoteTestData {
 
     public static final List<Vote> VOTES = List.of(VOTE_1, VOTE_2, VOTE_3, VOTE_4, VOTE_5, VOTE_6, VOTE_7, VOTE_8);
 
-   /* public static Vote getNew() {
-        return new Vote(null, "Created vote");
-    }*/
 
     public static VoteTo getNewTo() {
         return new VoteTo(null, 1, 1, LocalDate.now(), LocalTime.now());
@@ -59,8 +55,4 @@ public class VoteTestData {
     public static VoteTo getUpdated() {
         return new VoteTo(VOTE1_ID + 7, 1, 3, LocalDate.now(), LocalTime.now());
     }
-
-    /*public static VoteTo getUpdatedTo() {
-        return new VoteTo(VOTE1_ID, "Renewed vote", 1);
-    }*/
 }

@@ -2,9 +2,11 @@ package com.github.aalexeen.topjava2.to;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.aalexeen.topjava2.util.DateTimeUtil;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import lombok.ToString;
+import lombok.Value;
 
-import java.io.Serial;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -13,14 +15,9 @@ import java.time.LocalTime;
  * @project topjava2
  */
 @Value
-//@Getter
-//@Setter
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class VoteTo extends BaseTo {
-
-    /*@Serial
-    private static final long serialVersionUID = 1L;*/
 
     @NonNull
     Integer restaurantId;

@@ -6,10 +6,7 @@ import com.github.aalexeen.topjava2.web.MatcherFactory;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
-
-import static java.time.LocalDateTime.of;
 
 /**
  * @author alex_jd on 4/26/22
@@ -20,7 +17,6 @@ public class DishTestData {
     public static final MatcherFactory<Dish> DISH_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Dish.class, "restaurant", "date");
     public static MatcherFactory<Dish> DISH_TO_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Dish.class, "date");
 
-    public static final int NOT_FOUND = 10;
     public static final int DISH1_ID = 1;
     public static final int NONEXISTENT_DISH_ID = 9;
 
@@ -51,10 +47,6 @@ public class DishTestData {
 
     public static Dish getNewFromTo(DishTo dishTo) {
         return new Dish(dishTo.getId(), dishTo.getDate(), dishTo.getDescription());
-    }
-
-    public static Dish getUpdated() {
-        return new Dish(DISH1_ID, DISH_1.getDate().plus(2, ChronoUnit.MINUTES), "Renewed bread");
     }
 
     public static DishTo getUpdatedTo() {

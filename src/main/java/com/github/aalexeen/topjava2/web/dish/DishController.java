@@ -35,5 +35,4 @@ public class DishController extends AbstractDishController {
     public ResponseEntity<List<Dish>> getAllByRestaurantId(@PathVariable int id) {
         return super.getAllByRestaurantId(id);
     }
-
 }

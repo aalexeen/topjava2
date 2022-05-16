@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 /**
  * @author alex_jd on 4/20/22
@@ -19,5 +18,4 @@ public interface VoteRepository extends BaseRepository<Vote> {
 
     @Query("SELECT v FROM Vote v WHERE v.user=?1 AND v.localDate=?2")
     Vote getVoteByUserAndLocalDate(User user, LocalDate localDate);
-
 }

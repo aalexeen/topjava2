@@ -62,7 +62,8 @@ class AdminUserControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.delete(REST_URL + UserTestData.USER_ID))
                 .andDo(print())
                 .andExpect(status().isNoContent());
-        assertFalse(userRepository.findById(UserTestData.USER_ID).isPresent());
+        assertFalse(userRepository.findById(UserTestData.USER_ID)
+                .isPresent());
     }
 
     @Test
@@ -144,7 +145,8 @@ class AdminUserControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        Assertions.assertFalse(userRepository.getById(UserTestData.USER_ID).isEnabled());
+        Assertions.assertFalse(userRepository.getById(UserTestData.USER_ID)
+                .isEnabled());
     }
 
     @Test

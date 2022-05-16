@@ -4,7 +4,6 @@ import com.github.aalexeen.topjava2.model.Restaurant;
 import com.github.aalexeen.topjava2.to.RestaurantTo;
 import com.github.aalexeen.topjava2.web.MatcherFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,9 +13,7 @@ import java.util.List;
 public class RestaurantTestData {
 
     public static final MatcherFactory<Restaurant> RESTAURANT_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "registered", "dishes");
-    public static MatcherFactory<Restaurant> RESTAURANT_TO_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "dateTime");
 
-    public static final int NOT_FOUND = 10;
     public static final int RESTAURANT1_ID = 1;
 
     public static final int NONEXISTENT_RESTAURANT_ID = 10;
@@ -43,10 +40,6 @@ public class RestaurantTestData {
 
     public static Restaurant getNewFromTo(RestaurantTo RestaurantTo) {
         return new Restaurant(RestaurantTo.getId(), RestaurantTo.getName());
-    }
-
-    public static Restaurant getUpdated() {
-        return new Restaurant(RESTAURANT1_ID, "Renewed restaurant");
     }
 
     public static RestaurantTo getUpdatedTo() {

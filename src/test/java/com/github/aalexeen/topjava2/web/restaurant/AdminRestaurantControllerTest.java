@@ -12,12 +12,12 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static com.github.aalexeen.topjava2.web.restaurant.RestaurantTestData.*;
+import static com.github.aalexeen.topjava2.web.user.UserTestData.ADMIN_MAIL;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static com.github.aalexeen.topjava2.web.restaurant.RestaurantTestData.*;
-import static com.github.aalexeen.topjava2.web.user.UserTestData.ADMIN_MAIL;
 
 /**
  * @author alex_jd on 5/2/22
@@ -46,7 +46,8 @@ public class AdminRestaurantControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.delete(REST_URL + RESTAURANT1_ID))
                 .andDo(print())
                 .andExpect(status().isNoContent());
-        assertFalse(restaurantRepository.findById(RESTAURANT1_ID).isPresent());
+        assertFalse(restaurantRepository.findById(RESTAURANT1_ID)
+                .isPresent());
     }
 
     @Test
