@@ -71,9 +71,6 @@ public class AdminDishController extends AbstractDishController {
     @CacheEvict(allEntries = true)
     public void update(@Valid @RequestBody DishTo dishTo, @PathVariable int id) {
         assureIdConsistent(dishTo, id);
-        /*if (dishRepository.getById(id).getRestaurant().getId() != dishTo.getRestaurantId()) {
-            throw new MismatchDishBelong("The dish doesn't belong to current restaurant");
-        }*/
         Dish dish = new Dish();
         dish.setId(id);
         dish.setDescription(dishTo.getDescription());

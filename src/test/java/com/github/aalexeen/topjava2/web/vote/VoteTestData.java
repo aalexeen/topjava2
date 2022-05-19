@@ -22,7 +22,6 @@ public class VoteTestData {
     public static MatcherFactory<Vote> VOTE_TO_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Vote.class, "localDate", "localTime");
 
     public static final int VOTE1_ID = 1;
-    public static final int NONEXISTENT_VOTE_ID = 9;
 
     public static final Vote VOTE_1 = new Vote(VOTE1_ID, new User(1), new Restaurant(1, null), LocalDate.of(2022, 4, 16), LocalTime.of(19, 44, 15));
     public static final Vote VOTE_2 = new Vote(VOTE1_ID + 1, new User(1), new Restaurant(1, null), LocalDate.of(2022, 4, 16), LocalTime.of(19, 44, 15));

@@ -9,7 +9,8 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.github.aalexeen.topjava2.web.user.UserTestData.ADMIN_MAIL;
-import static com.github.aalexeen.topjava2.web.vote.VoteTestData.*;
+import static com.github.aalexeen.topjava2.web.vote.VoteTestData.VOTES;
+import static com.github.aalexeen.topjava2.web.vote.VoteTestData.VOTE_TO_MATCHER;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,13 +25,14 @@ public class AdminVoteControllerTest extends AbstractControllerTest {
     @Autowired
     private VoteRepository voteRepository;
 
+
     /*@Test
     @WithUserDetails(value = ADMIN_MAIL)
-    void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + (VOTE1_ID + 7)))
+    void getAll() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(VOTE_MATCHER.contentJson(VOTE_8));
+                .andExpect(VOTE_TO_MATCHER.contentJson(VOTES));
     }*/
 }

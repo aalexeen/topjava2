@@ -26,9 +26,6 @@ public class RestaurantTestData {
 
     public static final List<Restaurant> restaurantsLocalDate = List.of(restaurant3);
 
-    public static Restaurant getNew() {
-        return new Restaurant(null, "Created restaurant");
-    }
 
     public static RestaurantTo getNewTo() {
         return new RestaurantTo(null, "Created restaurant", 1);

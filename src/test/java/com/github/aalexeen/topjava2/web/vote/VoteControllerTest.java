@@ -54,15 +54,6 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .andExpect(status().isUnauthorized());
     }
 
-    /*@Test
-    @WithUserDetails(value = USER_MAIL)
-    void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(VOTE_TO_MATCHER.contentJson(VOTES));
-    }*/
 
     @Test
     @WithUserDetails(value = USER_MAIL)
