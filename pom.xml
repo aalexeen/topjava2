@@ -8,7 +8,7 @@
         <version>2.5.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>ru.javaops</groupId>
+    <groupId>com.github.aalexeen</groupId>
     <artifactId>topjava2</artifactId>
     <version>1.0</version>
 

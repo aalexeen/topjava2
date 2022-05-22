@@ -14,6 +14,8 @@ public class RestaurantTestData {
 
     public static final MatcherFactory<Restaurant> RESTAURANT_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "registered", "dishes");
 
+    public static final MatcherFactory<Restaurant> RESTAURANT_WITH_DISHES_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "registered");
+
     public static final int RESTAURANT1_ID = 1;
 
     public static final int NONEXISTENT_RESTAURANT_ID = 10;
@@ -25,7 +27,6 @@ public class RestaurantTestData {
     public static final List<Restaurant> restaurants = List.of(restaurant1, restaurant2, restaurant3);
 
     public static final List<Restaurant> restaurantsLocalDate = List.of(restaurant3);
-
 
     public static RestaurantTo getNewTo() {
         return new RestaurantTo(null, "Created restaurant", 1);
